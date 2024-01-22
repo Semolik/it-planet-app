@@ -10,13 +10,13 @@
 
 <style scoped lang="scss">
 .btn {
-    color: #FFFFFF;
-    background-color: #62A87C;
+    outline: 1px solid #62A87C;
     padding: 5px;
     border-radius: 8px;
+    background-color: #62A87C;
 
     &:active {
-        background-color: #56946d;
+        background-color: #62A87C;
     }
 }
 </style>

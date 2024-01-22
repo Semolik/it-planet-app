@@ -4,8 +4,9 @@
         <div class="auth-frame">
             <div class="auth-frame_title">Sign In</div>
             <auth-input class="auth-frame_input" v-model="login" placeholder="login" />
-            <auth-input class="auth-frame_input" v-model="password" placeholder="password" />
-            <green-button class="auth-frame_submit-btn">Submit</green-button>
+            <auth-input class="auth-frame_input" v-model="password" @update:modelValue="toggleActive" type="password" placeholder="password" />
+            <white-button v-if="isActive" class="auth-frame_submit-btn">Submit</white-button>
+            <white-button v-else class="auth-frame_submit-btn_off">Submit</white-button>
         </div>
         <div class="reg-offer">
             <div class="reg-offer_title">Have no account?</div>
@@ -16,7 +17,16 @@
 
 <script setup>
 const login = ref('')
-const password= ref('')
+const password = ref('')
+const isActive = ref(false)
+
+const toggleActive = () => {
+    if (password.value.length >= 8) {
+        isActive.value = true
+    } else {
+        isActive.value = false
+    }
+}
 </script>
 
 <style scoped lang="scss">
@@ -26,18 +36,18 @@ const password= ref('')
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 0 5vw;
+    padding: 0 5vw;
+    background-color: #62A87C;
 }
 
 .title {
     font-family: 'Dancing Script', sans-serif;
-    color: #62A87C;
+    color: #f2f3f4;
     font-size: 115px;
 }
 
 .auth-frame {
     width: 100%;
-    // box-shadow: 0 0 10px #62A87C;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -48,17 +58,32 @@ const password= ref('')
 
     &_title {
         font-size: 30px;
-        color: #62A87C;
+        color: #f2f3f4;
     }
 
     &_input {
         width: 100%;
+        box-shadow: 0 0 3px #5f5f5f;
     }
 
     &_submit-btn {
         width: 100%;
-        height: 40px;
+        height: 46px;
         font-size: 24px;
+        box-shadow: 0 0 3px #5f5f5f;
+
+        &_off {
+            width: 100%;
+            height: 46px;
+            font-size: 24px;
+            background-color: #5f5f5f;
+            color: #f2f3f4;
+
+            &:active {
+                background-color: #5f5f5f;
+                color: #f2f3f4;
+            }
+        }
     }
 }
 
@@ -71,12 +96,12 @@ const password= ref('')
 
     &_title {
         margin-bottom: 5px;
-        color: #3f3f3f;
+        color: #f2f3f4;
     }
 
     &_signup-btn {
         height: 30px;
-        color: #3f3f3f;
+        box-shadow: 0 0 3px #5f5f5f;
     }
 }
 </style>

@@ -13,11 +13,12 @@ const handleChangeValue = (value) => {
 <style scoped lang="scss">
 .input {
     font-size: 24px;
-    border: 1px solid #cecece;
-    background: #FFFFFF;
+    border: none;
+    background: #f2f3f4;
     border-radius: 8px;
-    color: #3f3f3f;
-    outline: #62A87C solid 1px;
+    color: #5f5f5f;
+    // outline: #62A87C solid 1px;
+    outline: none;
     padding: 5px 10px;
     caret-color: #62A87C;
 }
