@@ -1,0 +1,18 @@
+:root {
+    --ion-background-color: #F5F5F5;
+    --ion-color-primary: #62A87C;
+    --ion-color-primary-contrast: #000000;
+    --ion-color-primary-shade: #62A87C;
+    --ion-color-primary-tint: #62A87C;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s,
+        opacity 0.2s;
+    font-family: "Jost", sans-serif;
+    padding: 0;
+    margin: 0;
+}
