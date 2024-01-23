@@ -19,5 +19,10 @@
         background-color: #62A87C;
         color: #f5f5f5;
     }
+
+    &:disabled {
+        pointer-events: none;
+        opacity: .3;
+    }
 }
 </style>

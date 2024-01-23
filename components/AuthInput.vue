@@ -1,12 +1,14 @@
 <template>
-    <input class="input" @update:model-value="handleChangeValue" v-model="modelValue" />
+    <input class="input" :value="modelValue" @input="handleChangeValue" />
 </template>
 
 <script setup>
-const props = defineProps(['modelValue?'])
+defineProps(['modelValue'])
+
 const emit = defineEmits(['update:modelValue'])
-const handleChangeValue = (value) => {
-    emit('update:modelValue', value)
+
+const handleChangeValue = (event) => {
+    emit('update:modelValue', event.target.value)
 }
 </script>
 
@@ -17,7 +19,6 @@ const handleChangeValue = (value) => {
     background: #f2f3f4;
     border-radius: 8px;
     color: #5f5f5f;
-    // outline: #62A87C solid 1px;
     outline: none;
     padding: 5px 10px;
     caret-color: #62A87C;
