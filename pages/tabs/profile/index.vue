@@ -29,7 +29,7 @@ const login = ref("");
     .profile-avatar {
       width: 150px;
       height: 150px;
-      border: 2px dashed #000;
+      outline: 2px dashed #000;
       border-radius: 50%;
     }
   }

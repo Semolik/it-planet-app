@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <main-header />
+    <app-header />
     <ion-content>
       <div class="wrapper">
         <div id="swiper">
