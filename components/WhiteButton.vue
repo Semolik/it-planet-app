@@ -14,15 +14,15 @@
     background-color: #F5F5F5;
     padding: 5px;
     border-radius: 8px;
+    user-select: none;
 
     &:active {
-        background-color: #62A87C;
-        color: #f5f5f5;
+        background-color: #f5f5f580;
     }
 
     &:disabled {
         pointer-events: none;
-        opacity: .3;
+        opacity: .5;
     }
 }
 </style>

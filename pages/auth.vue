@@ -3,7 +3,7 @@
     <div class="wrapper">
       <div class="title">Frienda</div>
       <div class="auth-frame">
-        <div class="auth-frame__title">Вход</div>
+        <div class="auth-frame__title">Авторизация</div>
         <auth-input
           class="auth-frame__input"
           v-model="login"
@@ -75,6 +75,10 @@ const isActive = computed(
     box-shadow: 0 0 3px #5f5f5f;
     margin-top: 25px;
     margin-bottom: 15px;
+
+    &:active {
+      box-shadow: none;
+    }
   }
 }
 
