@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <main-header />
+    <app-main-header />
     <ion-content>
       Tab 1 content
     </ion-content>

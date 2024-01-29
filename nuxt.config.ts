@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ['@nuxtjs/ionic', '@nuxtjs/google-fonts', '@nuxt/ui'],
+    modules: ['@nuxtjs/ionic', '@nuxtjs/google-fonts', '@nuxt/ui', 'nuxt-swiper'],
     googleFonts: {
         families: {
             "Jost": true,

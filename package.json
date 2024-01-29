@@ -26,6 +26,8 @@
     "@capacitor/keyboard": "5.0.7",
     "@capacitor/status-bar": "5.0.6",
     "@nuxt/ui": "^2.12.3",
-    "vue-tinder": "^2.0.3"
+    "nuxt-swiper": "^1.2.2",
+    "swiper": "^11.0.5",
+    "vue-tinder": "^3.0.0-alpha.2"
   }
 }

@@ -1,72 +1,111 @@
 <template>
   <ion-page>
     <app-header />
-    <ion-content>
-      <div class="wrapper">
-        <div id="swiper">
-          <div class="card" style="--i:0">
-            <img src="https://source.unsplash.com/random/1000x1000/?forest" alt="">
-          </div>
-          <div class="card" style="--i:1">
-            <img src="https://source.unsplash.com/random/1000x1000/?landscape" alt="">
-          </div>
-          <div class="card" style="--i:2">
-            <img src="https://source.unsplash.com/random/1000x1000/?ocean" alt="">
-          </div>
-          <div class="card" style="--i:3">
-            <img src="https://source.unsplash.com/random/1000x1000/?moutain" alt="">
-          </div>
-          <div class="card" style="--i:4">
-            <img src="https://source.unsplash.com/random/1000x1000/?sky" alt="">
-          </div>
-        </div>
-      </div>
+    <ion-content class="content">
+      <app-search-swiper class="asd" :cards="cards" />
     </ion-content>
   </ion-page>
 </template>
 
 <script setup>
+// import "swiper/css";
+// import "swiper/css/effect-cards";
 
+const cards = [
+  {
+    id: 1,
+    name: "Roma",
+    age: 21,
+    description: "some desc",
+    photos: [
+      "https://loremflickr.com/1000/1000/cats?random=1",
+      "https://loremflickr.com/1000/1000/cats?random=2",
+      "https://loremflickr.com/1000/1000/cats?random=3",
+    ],
+  },
+  {
+    id: 2,
+    name: "Yarik",
+    age: 20,
+    description: "some desc",
+    photos: [
+      "https://loremflickr.com/1000/1000/cats?random=4",
+      "https://loremflickr.com/1000/1000/cats?random=5",
+      "https://loremflickr.com/1000/1000/cats?random=6",
+    ],
+  },
+  {
+    id: 3,
+    name: "Sema",
+    age: 20,
+    description: "some desc",
+    photos: [
+      "https://loremflickr.com/1000/1000/cats?random=7",
+      "https://loremflickr.com/1000/1000/cats?random=8",
+      "https://loremflickr.com/1000/1000/cats?random=9",
+    ],
+  },
+  {
+    id: 4,
+    name: "Baga",
+    age: 20,
+    description: "some desc",
+    photos: [
+      "https://loremflickr.com/1000/1000/cats?random=10",
+      "https://loremflickr.com/1000/1000/cats?random=11",
+      "https://loremflickr.com/1000/1000/cats?random=12",
+    ],
+  },
+  {
+    id: 5,
+    name: "Xyu",
+    age: 99,
+    description: "some desc",
+    photos: [
+      "https://loremflickr.com/1000/1000/cats?random=13",
+      "https://loremflickr.com/1000/1000/cats?random=14",
+      "https://loremflickr.com/1000/1000/cats?random=15",
+    ],
+  },
+];
 </script>
 
 <style scoped lang="scss">
-.wrapper {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+.content {
+  --background: linear-gradient(180deg, #62a87c, #f2f3f4) no-repeat;
+}
+
+.asd {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(180deg, #62A87C, #f2f3f4) no-repeat;
 }
+// .wrapper {
+//   overflow: hidden;
+//   background: linear-gradient(180deg, #62a87c, #f2f3f4) no-repeat;
+//   width: 100%;
+//   height: 100%;
+// }
 
-#swiper {
-  width: 88vw;
-  aspect-ratio: 9 / 16;
-  perspective: 450px;
-  // perspective-origin: center 50%;
-  transform-style: preserve-3d;
-  // position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.card {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  border-radius: 20px;
-  overflow: hidden;
-  transform: translateZ(calc(-30px * var(--i)));
-  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.5));
-  user-select: none;
-  transition: transform 0.5s;
-}
+// .mySwiper {
+//   width: 200px;
+//   height: 400px;
+// }
 
-.card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+
+
+// :deep(.card) {
+//   transform: none;
+// }
+// .card:nth-child(2) {
+//   z-index: 4;
+// }
+// .card:nth-child(3) {
+//   z-index: 3;
+// }
+// .card:nth-child(4) {
+//   z-index: 2;
+// }
+// .card:nth-child(5) {
+//   z-index: 1;
+// }
 </style>
