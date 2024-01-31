@@ -2,21 +2,19 @@
   <ion-page>
     <app-header />
     <ion-content class="content">
-      <app-search-swiper class="asd" :cards="cards" />
+      <app-search-swiper :cards="cards" />
     </ion-content>
   </ion-page>
 </template>
 
 <script setup>
-// import "swiper/css";
-// import "swiper/css/effect-cards";
-
-const cards = [
+const cards = ref([
   {
     id: 1,
-    name: "Roma",
+    name: "Рома",
     age: 21,
-    description: "some desc",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
     photos: [
       "https://loremflickr.com/1000/1000/cats?random=1",
       "https://loremflickr.com/1000/1000/cats?random=2",
@@ -25,9 +23,10 @@ const cards = [
   },
   {
     id: 2,
-    name: "Yarik",
+    name: "Ярик",
     age: 20,
-    description: "some desc",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
     photos: [
       "https://loremflickr.com/1000/1000/cats?random=4",
       "https://loremflickr.com/1000/1000/cats?random=5",
@@ -36,9 +35,10 @@ const cards = [
   },
   {
     id: 3,
-    name: "Sema",
+    name: "Сема",
     age: 20,
-    description: "some desc",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
     photos: [
       "https://loremflickr.com/1000/1000/cats?random=7",
       "https://loremflickr.com/1000/1000/cats?random=8",
@@ -47,9 +47,10 @@ const cards = [
   },
   {
     id: 4,
-    name: "Baga",
+    name: "Бага",
     age: 20,
-    description: "some desc",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
     photos: [
       "https://loremflickr.com/1000/1000/cats?random=10",
       "https://loremflickr.com/1000/1000/cats?random=11",
@@ -58,54 +59,21 @@ const cards = [
   },
   {
     id: 5,
-    name: "Xyu",
+    name: "Хуй",
     age: 99,
-    description: "some desc",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
     photos: [
       "https://loremflickr.com/1000/1000/cats?random=13",
       "https://loremflickr.com/1000/1000/cats?random=14",
       "https://loremflickr.com/1000/1000/cats?random=15",
     ],
   },
-];
+]);
 </script>
 
 <style scoped lang="scss">
 .content {
   --background: linear-gradient(180deg, #62a87c, #f2f3f4) no-repeat;
 }
-
-.asd {
-  display: flex;
-}
-// .wrapper {
-//   overflow: hidden;
-//   background: linear-gradient(180deg, #62a87c, #f2f3f4) no-repeat;
-//   width: 100%;
-//   height: 100%;
-// }
-
-
-// .mySwiper {
-//   width: 200px;
-//   height: 400px;
-// }
-
-
-
-// :deep(.card) {
-//   transform: none;
-// }
-// .card:nth-child(2) {
-//   z-index: 4;
-// }
-// .card:nth-child(3) {
-//   z-index: 3;
-// }
-// .card:nth-child(4) {
-//   z-index: 2;
-// }
-// .card:nth-child(5) {
-//   z-index: 1;
-// }
 </style>
