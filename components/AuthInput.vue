@@ -4,9 +4,7 @@
 
 <script setup>
 defineProps(["modelValue"]);
-
 const emit = defineEmits(["update:modelValue"]);
-
 const handleChangeValue = (event) => {
   emit("update:modelValue", event.target.value);
 };

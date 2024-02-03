@@ -1,5 +1,6 @@
 <template>
   <Swiper
+    class="swiper"
     :modules="[SwiperPagination]"
     :slides-per-view="1"
     :loop="false"
@@ -9,7 +10,7 @@
   >
     <div class="btn_prev" @click="handlePrev"></div>
     <div class="btn_next" @click="handleNext"></div>
-    <SwiperSlide v-for="photo in card.photos" :key="photo">
+    <SwiperSlide class="slide" v-for="photo in card.photos" :key="photo">
       <img :src="photo" />
     </SwiperSlide>
     <div class="user-info" @click="toggleInfo">
@@ -50,6 +51,14 @@ const toggleInfo = () => {
 </script>
 
 <style scoped lang="scss">
+
+.swiper {
+  user-select: none;
+  --swiper-theme-color: #f2f3f4;
+  border-radius: 25px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
 .btn_prev {
   position: absolute;
   top: 0;
@@ -88,6 +97,7 @@ const toggleInfo = () => {
   color: #f2f3f4;
   padding: calc(1% * v-bind(infoTopCoeff)) 4%;
   transition: 0.45s;
+  backdrop-filter: blur(5px);
 
   &__name {
     font-size: 24px;

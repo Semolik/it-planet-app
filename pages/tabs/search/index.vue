@@ -2,7 +2,9 @@
   <ion-page>
     <app-header />
     <ion-content class="content">
-      <app-search-swiper :cards="cards" />
+      <div class="wrapper">
+        <app-search @dislike="dislike" @like="like" :cards="cards" />
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -70,10 +72,25 @@ const cards = ref([
     ],
   },
 ]);
+
+const dislike = () => {
+  cards.value.shift();
+};
+
+const like = () => {
+  console.log("liked!");
+};
 </script>
 
 <style scoped lang="scss">
 .content {
   --background: linear-gradient(180deg, #62a87c, #f2f3f4) no-repeat;
+}
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

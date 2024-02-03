@@ -32,7 +32,6 @@
         "nuxt-swiper": "^1.2.2",
         "openapi-typescript-codegen": "^0.27.0",
         "pinia": "^2.1.7",
-        "swiper": "^11.0.5",
-        "vue-tinder": "^3.0.0-alpha.2"
+        "swiper": "^11.0.5"
     }
 }
