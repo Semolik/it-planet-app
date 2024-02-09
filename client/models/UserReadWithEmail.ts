@@ -5,10 +5,12 @@
 export type UserReadWithEmail = {
     email: string;
     image?: (string | null);
+    age: number;
     name: string;
+    discription?: string;
+    verified: boolean;
     birthdate?: (string | null);
     register_date: string;
-    discription?: string;
     id: string;
     is_active?: boolean;
     is_superuser?: boolean;

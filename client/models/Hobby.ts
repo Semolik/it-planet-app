@@ -2,9 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type CreateInstitute = {
+export type Hobby = {
     name: string;
-    university_id?: (string | null);
-    city_id: string;
+    id: string;
 };
 

@@ -2,8 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type CreateUniversity = {
+import type { City } from './City';
+export type Institution = {
     name: string;
-    short_name: string;
+    id: string;
+    city: City;
 };
 

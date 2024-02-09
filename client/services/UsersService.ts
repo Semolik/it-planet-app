@@ -4,7 +4,9 @@
 /* eslint-disable */
 import type { Body_update_user_me_image_users_me_image_put } from '../models/Body_update_user_me_image_users_me_image_put';
 import type { ImageInfo } from '../models/ImageInfo';
+import type { UserLike } from '../models/UserLike';
 import type { UserRead } from '../models/UserRead';
+import type { UserReadShort } from '../models/UserReadShort';
 import type { UserReadWithEmail } from '../models/UserReadWithEmail';
 import type { UserUpdate } from '../models/UserUpdate';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -136,6 +138,69 @@ export class UsersService {
         });
     }
     /**
+     * Get Recommended
+     * @param hobbiesIds
+     * @param institutionsIds
+     * @returns UserReadShort Successful Response
+     * @throws ApiError
+     */
+    public static getRecommendedUsersRecommendedGet(
+        hobbiesIds?: Array<string>,
+        institutionsIds?: Array<string>,
+    ): CancelablePromise<UserReadShort> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/users/recommended',
+            query: {
+                'hobbies_ids': hobbiesIds,
+                'institutions_ids': institutionsIds,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Like User
+     * @param userId
+     * @returns UserLike Successful Response
+     * @throws ApiError
+     */
+    public static likeUserUsersUserIdLikePost(
+        userId: string,
+    ): CancelablePromise<UserLike> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/users/{user_id}/like',
+            path: {
+                'user_id': userId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Dislike User
+     * @param userId
+     * @returns UserLike Successful Response
+     * @throws ApiError
+     */
+    public static dislikeUserUsersUserIdDislikePost(
+        userId: string,
+    ): CancelablePromise<UserLike> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/users/{user_id}/dislike',
+            path: {
+                'user_id': userId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Get Users
      * @param search
      * @param page
@@ -144,7 +209,7 @@ export class UsersService {
      * @param superusersToTop
      * @param onlySuperusers
      * @param isVerified
-     * @returns any Successful Response
+     * @returns UserReadWithEmail Successful Response
      * @throws ApiError
      */
     public static getUsersUsersGet(
@@ -155,7 +220,7 @@ export class UsersService {
         superusersToTop: boolean = false,
         onlySuperusers: boolean = false,
         isVerified?: boolean,
-    ): CancelablePromise<Array<(UserRead | UserReadWithEmail)>> {
+    ): CancelablePromise<Array<UserReadWithEmail>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/users',

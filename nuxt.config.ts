@@ -6,6 +6,7 @@ export default defineNuxtConfig({
         "@nuxt/ui",
         "nuxt-swiper",
         "@pinia/nuxt",
+        "nuxt-icon",
     ],
     plugins: ["~/plugins/api-url"],
     googleFonts: {

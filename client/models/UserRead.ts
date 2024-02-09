@@ -4,10 +4,12 @@
 /* eslint-disable */
 export type UserRead = {
     image?: (string | null);
+    age: number;
     name: string;
+    discription?: string;
+    verified: boolean;
     birthdate?: (string | null);
     register_date: string;
-    discription?: string;
     id: string;
     email: string;
     is_active?: boolean;

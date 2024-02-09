@@ -4,9 +4,10 @@
 /* eslint-disable */
 export type UserCreate = {
     name: string;
+    discription?: string;
+    verified: boolean;
     birthdate?: (string | null);
     register_date: string;
-    discription?: string;
     email: string;
     password: string;
     is_active?: (boolean | null);

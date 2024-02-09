@@ -2,10 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { City } from './City';
-export type Institute = {
+export type UserReadShort = {
     name: string;
+    discription?: string;
+    verified: boolean;
+    image?: (string | null);
+    age: number;
     id: string;
-    city: City;
 };
 

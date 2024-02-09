@@ -2,24 +2,24 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CreateUniversity } from '../models/CreateUniversity';
-import type { University } from '../models/University';
+import type { CreateInstitution } from '../models/CreateInstitution';
+import type { Institution } from '../models/Institution';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class UniversitiesService {
+export class InstitutionsService {
     /**
-     * Create University
+     * Create Institution
      * @param requestBody
-     * @returns University Successful Response
+     * @returns Institution Successful Response
      * @throws ApiError
      */
-    public static createUniversityLocationsUniversitiesPost(
-        requestBody: CreateUniversity,
-    ): CancelablePromise<University> {
+    public static createInstitutionLocationsInstitutionsPost(
+        requestBody: CreateInstitution,
+    ): CancelablePromise<Institution> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/locations/universities',
+            url: '/locations/institutions',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -28,21 +28,21 @@ export class UniversitiesService {
         });
     }
     /**
-     * Get Universities
+     * Get Institutions
      * @param cityId
      * @param query
      * @param page
-     * @returns University Successful Response
+     * @returns Institution Successful Response
      * @throws ApiError
      */
-    public static getUniversitiesLocationsUniversitiesGet(
+    public static getInstitutionsLocationsInstitutionsGet(
         cityId: string,
         query?: string,
         page: number = 1,
-    ): CancelablePromise<Array<University>> {
+    ): CancelablePromise<Array<Institution>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/locations/universities',
+            url: '/locations/institutions',
             query: {
                 'city_id': cityId,
                 'query': query,
@@ -54,19 +54,19 @@ export class UniversitiesService {
         });
     }
     /**
-     * Get University
-     * @param universityId
-     * @returns University Successful Response
+     * Get Institution
+     * @param institutionId
+     * @returns Institution Successful Response
      * @throws ApiError
      */
-    public static getUniversityLocationsUniversitiesUniversityIdGet(
-        universityId: string,
-    ): CancelablePromise<University> {
+    public static getInstitutionLocationsInstitutionsInstitutionIdGet(
+        institutionId: string,
+    ): CancelablePromise<Institution> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/locations/universities/{university_id}',
+            url: '/locations/institutions/{institution_id}',
             path: {
-                'university_id': universityId,
+                'institution_id': institutionId,
             },
             errors: {
                 422: `Validation Error`,
@@ -74,21 +74,21 @@ export class UniversitiesService {
         });
     }
     /**
-     * Update University
-     * @param universityId
+     * Update Institution
+     * @param institutionId
      * @param requestBody
-     * @returns University Successful Response
+     * @returns Institution Successful Response
      * @throws ApiError
      */
-    public static updateUniversityLocationsUniversitiesUniversityIdPut(
-        universityId: string,
-        requestBody: CreateUniversity,
-    ): CancelablePromise<University> {
+    public static updateInstitutionLocationsInstitutionsInstitutionIdPut(
+        institutionId: string,
+        requestBody: CreateInstitution,
+    ): CancelablePromise<Institution> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/locations/universities/{university_id}',
+            url: '/locations/institutions/{institution_id}',
             path: {
-                'university_id': universityId,
+                'institution_id': institutionId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -98,19 +98,19 @@ export class UniversitiesService {
         });
     }
     /**
-     * Delete University
-     * @param universityId
+     * Delete Institution
+     * @param institutionId
      * @returns void
      * @throws ApiError
      */
-    public static deleteUniversityLocationsUniversitiesUniversityIdDelete(
-        universityId: string,
+    public static deleteInstitutionLocationsInstitutionsInstitutionIdDelete(
+        institutionId: string,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/locations/universities/{university_id}',
+            url: '/locations/institutions/{institution_id}',
             path: {
-                'university_id': universityId,
+                'institution_id': institutionId,
             },
             errors: {
                 422: `Validation Error`,
