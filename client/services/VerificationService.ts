@@ -30,21 +30,16 @@ export class VerificationService {
     }
     /**
      * Create Verification Request
-     * @param institutionId
      * @param formData
      * @returns VerificationRequest Successful Response
      * @throws ApiError
      */
     public static createVerificationRequestVerificationPost(
-        institutionId: string,
         formData: Body_create_verification_request_verification_post,
     ): CancelablePromise<VerificationRequest> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/verification',
-            query: {
-                'institution_id': institutionId,
-            },
             formData: formData,
             mediaType: 'multipart/form-data',
             errors: {

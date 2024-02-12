@@ -31,4 +31,9 @@ export default defineNuxtConfig({
             },
         },
     },
+    runtimeConfig: {
+        public: {
+            apiUrl: "localhost:8000",
+        },
+    },
 });
