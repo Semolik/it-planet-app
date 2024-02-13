@@ -21,6 +21,18 @@ export default defineNuxtConfig({
         head: { title: "Frienda" },
     },
     css: ["assets/styles/ionic.css"],
+    vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    additionalData: [
+                        '@use "@/assets/styles/colors.scss" as *;',
+                        '@use "@/assets/styles/helpers.scss" as *;',
+                    ].join(""),
+                },
+            },
+        },
+    },
     nitro: {
         devProxy: {
             "/api": {

@@ -2,12 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Message } from './Message';
-export type Chat = {
+export type Notification = {
     id: string;
-    user_id_1: string;
-    user_id_2: string;
+    message: string;
+    header: string;
+    read: boolean;
     creation_date: string;
-    last_message: Message;
 };
 

@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Chat } from '../models/Chat';
+import type { ChatWithUsers } from '../models/ChatWithUsers';
 import type { Message } from '../models/Message';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -12,12 +13,12 @@ export class ChatsService {
      * Get Chats
      * Возвращает список чатов пользователя.
      * @param page
-     * @returns Chat Successful Response
+     * @returns ChatWithUsers Successful Response
      * @throws ApiError
      */
     public static getChatsChatsGet(
         page: number,
-    ): CancelablePromise<Array<Chat>> {
+    ): CancelablePromise<Array<ChatWithUsers>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/chats',
@@ -57,12 +58,12 @@ export class ChatsService {
      * Get Chat
      * Возвращает чат по его ID.
      * @param chatId ID чата
-     * @returns Chat Successful Response
+     * @returns ChatWithUsers Successful Response
      * @throws ApiError
      */
     public static getChatChatsChatIdGet(
         chatId: string,
-    ): CancelablePromise<Chat> {
+    ): CancelablePromise<ChatWithUsers> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/chats/{chat_id}',
@@ -78,7 +79,7 @@ export class ChatsService {
      * Send Message
      * Отправляет сообщение в чат.
      * @param chatId ID чата
-     * @param content Текст сообщения
+     * @param content
      * @returns Message Successful Response
      * @throws ApiError
      */
