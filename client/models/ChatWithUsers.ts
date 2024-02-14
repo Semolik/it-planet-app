@@ -10,6 +10,7 @@ export type ChatWithUsers = {
     user_id_2: string;
     creation_date: string;
     last_message: Message;
+    unreaded?: number;
     user_1: UserReadShort;
     user_2: UserReadShort;
 };

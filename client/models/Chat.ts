@@ -9,5 +9,6 @@ export type Chat = {
     user_id_2: string;
     creation_date: string;
     last_message: Message;
+    unreaded?: number;
 };
 
