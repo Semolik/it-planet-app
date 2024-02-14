@@ -13,16 +13,19 @@ export class ChatsService {
      * Get Chats
      * Возвращает список чатов пользователя.
      * @param page
+     * @param query Поиск по имени пользователя
      * @returns ChatWithUsers Successful Response
      * @throws ApiError
      */
     public static getChatsChatsGet(
         page: number,
+        query?: string,
     ): CancelablePromise<Array<ChatWithUsers>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/chats',
             query: {
+                'query': query,
                 'page': page,
             },
             errors: {
@@ -122,25 +125,6 @@ export class ChatsService {
             query: {
                 'page': page,
             },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Push To Connected Websockets
-     * @param requestBody
-     * @returns any Successful Response
-     * @throws ApiError
-     */
-    public static pushToConnectedWebsocketsChatsPushPost(
-        requestBody: Record<string, any>,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/chats/push',
-            body: requestBody,
-            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },

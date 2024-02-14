@@ -41,7 +41,7 @@ const { chat, currentUserId } = defineProps({
     },
 });
 const toUser = computed(() =>
-    chat.user_id_1 === currentUserId ? chat.user_1 : chat.user_2
+    chat.user_id_1 === currentUserId ? chat.user_2 : chat.user_1
 );
 watch(chat, (value) => {
     console.log(value);
@@ -80,8 +80,10 @@ const dateText = computed(() => {
         }
         .chat-avatar {
             border-radius: 50%;
+            width: 55px;
+            height: 55px;
             background-color: #f2f3f4;
-            margin-right: 10px;
+
             @include flex-center;
 
             svg {
