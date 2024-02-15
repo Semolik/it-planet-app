@@ -8,6 +8,7 @@ export default defineNuxtConfig({
         "@pinia/nuxt",
         "nuxt-icon",
     ],
+
     plugins: ["~/plugins/api-url"],
     googleFonts: {
         families: {
@@ -36,7 +37,7 @@ export default defineNuxtConfig({
     nitro: {
         devProxy: {
             "/api": {
-                target: "http://localhost:8000",
+                target: "https://frienda-api.semolik.ru",
                 changeOrigin: true,
                 prependPath: true,
                 cookieDomainRewrite: false,
