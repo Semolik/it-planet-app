@@ -46,7 +46,7 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         public: {
-            apiUrl: "localhost:3000",
+            apiUrl: "frienda-api.semolik.ru",
         },
     },
 });

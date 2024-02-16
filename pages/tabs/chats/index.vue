@@ -33,7 +33,7 @@ watch(search, async (value) => {
 });
 const connect = () => {
     const { apiUrl } = useRuntimeConfig().public;
-    var ws = new WebSocket(`ws://${apiUrl}/chats/ws`);
+    var ws = new WebSocket(`wss://${apiUrl}/chats/ws`);
     ws.addEventListener("open", (event) => {
         console.log("WebSocket Connected!");
     });
