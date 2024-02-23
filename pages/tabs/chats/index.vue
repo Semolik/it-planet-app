@@ -32,8 +32,8 @@ watch(search, async (value) => {
     page.value = 1;
 });
 const connect = () => {
-    const { apiUrl } = useRuntimeConfig().public;
-    var ws = new WebSocket(`wss://${apiUrl}/chats/ws`);
+    const { wsURL } = useRuntimeConfig().public;
+    var ws = new WebSocket(`${wsURL}/chats/ws`);
     ws.addEventListener("open", (event) => {
         console.log("WebSocket Connected!");
     });
@@ -65,6 +65,7 @@ const connect = () => {
         }, 1000);
     };
     ws.onerror = function (err) {
+        console.log(err);
         console.error(
             "Socket encountered error: ",
             err.message,

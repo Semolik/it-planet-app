@@ -7,6 +7,7 @@ export default defineNuxtConfig({
         "nuxt-swiper",
         "@pinia/nuxt",
         "nuxt-icon",
+        "@nuxt-alt/proxy",
     ],
 
     plugins: ["~/plugins/api-url"],
@@ -34,19 +35,32 @@ export default defineNuxtConfig({
             },
         },
     },
-    nitro: {
-        devProxy: {
+    runtimeConfig: {
+        public: {
+            wsURL: "wss://frienda-api.semolik.ru",
+        },
+    },
+    proxy: {
+        experimental: {
+            listener: true,
+        },
+
+        proxies: {
             "/api": {
                 target: "https://frienda-api.semolik.ru",
                 changeOrigin: true,
                 prependPath: true,
+                rewrite: (path) => path.replace(/^\/api/, ""),
                 cookieDomainRewrite: false,
+                ws: true,
             },
         },
     },
-    runtimeConfig: {
-        public: {
-            apiUrl: "frienda-api.semolik.ru",
+    $development: {
+        runtimeConfig: {
+            public: {
+                wsURL: "ws://localhost:3000/api",
+            },
         },
     },
 });
