@@ -13,6 +13,13 @@
 	--ion-color-secondary-shade: #d38f02;
 	--ion-color-secondary-tint: #f2ab1b;
 
+	--ion-color-danger: #eb445a;
+	--ion-color-danger-rgb: 235,68,90;
+	--ion-color-danger-contrast: #000000;
+	--ion-color-danger-contrast-rgb: 0,0,0;
+	--ion-color-danger-shade: #cf3c4f;
+	--ion-color-danger-tint: #ed576b;
+
     --ion-color-light: #f2f3f4;
 	--ion-color-light-rgb: 242,243,244;
 	--ion-color-light-contrast: #000000;

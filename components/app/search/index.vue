@@ -1,7 +1,6 @@
 <template>
   <app-search-card
-    v-for="(card, index) in cards"
-    :index="index"
+    v-for="card in cards"
     class="card"
     :card="card"
     :key="card.id"

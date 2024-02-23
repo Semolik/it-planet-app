@@ -1,33 +1,35 @@
 <template>
-  <ion-content>
-    <div class="wrapper">
-      <div class="title">Frienda</div>
-      <div class="auth-frame">
-        <div class="auth-frame__title">Авторизация</div>
-        <auth-input
-          class="auth-frame__input"
-          v-model="login"
-          placeholder="Логин"
-        />
-        <auth-input
-          class="auth-frame__input"
-          v-model="password"
-          type="password"
-          placeholder="Пароль"
-        />
-        <white-button
-          @click="submit"
-          :disabled="!isActive"
-          class="auth-frame__submit-btn"
-          >Войти</white-button
-        >
+  <ion-page>
+    <ion-content>
+      <div class="wrapper">
+        <div class="title">Frienda</div>
+        <div class="auth-frame">
+          <div class="auth-frame__title">Авторизация</div>
+          <auth-input
+            class="auth-frame__input"
+            v-model="login"
+            placeholder="Email"
+          />
+          <auth-input
+            class="auth-frame__input"
+            v-model="password"
+            type="password"
+            placeholder="Пароль"
+          />
+          <white-button
+            @click="submit"
+            :disabled="!isActive"
+            class="auth-frame__submit-btn"
+            >Войти</white-button
+          >
+        </div>
+        <div class="reg-offer">
+          <div class="reg-offer__title">Нет аккаунта?</div>
+          <white-button class="reg-offer__signup-btn">Регистрация</white-button>
+        </div>
       </div>
-      <div class="reg-offer">
-        <div class="reg-offer__title">Нет аккаунта?</div>
-        <white-button class="reg-offer__signup-btn">Регистрация </white-button>
-      </div>
-    </div>
-  </ion-content>
+    </ion-content>
+  </ion-page>
 </template>
 
 <script setup>
@@ -38,7 +40,7 @@ const login = ref("");
 const password = ref("");
 
 const isActive = computed(
-  () => password.value.length >= 8 && login.value.length > 0
+  () => password.value.length >= 8 && login.value.length > 0 && login.value.includes("@")
 );
 const submit = async () => {
   if (!isActive.value) return;
