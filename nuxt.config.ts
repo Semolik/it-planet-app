@@ -1,4 +1,4 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
     modules: [
         "@nuxtjs/ionic",
@@ -44,13 +44,12 @@ export default defineNuxtConfig({
         experimental: {
             listener: true,
         },
-
         proxies: {
             "/api": {
                 target: "https://frienda-api.semolik.ru",
                 changeOrigin: true,
                 prependPath: true,
-                rewrite: (path) => path.replace(/^\/api/, ""),
+                rewrite: (path: string) => path.replace(/^\/api/, ""),
                 cookieDomainRewrite: false,
                 ws: true,
             },
