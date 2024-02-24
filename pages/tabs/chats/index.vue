@@ -31,50 +31,21 @@ watch(search, async (value) => {
     chats.value = await ChatsService.getChatsChatsGet(1, value);
     page.value = 1;
 });
-const connect = () => {
-    const { wsURL } = useRuntimeConfig().public;
-    var ws = new WebSocket(`${wsURL}/chats/ws`);
-    ws.addEventListener("open", (event) => {
-        console.log("WebSocket Connected!");
-    });
-
-    ws.onmessage = function (event) {
-        const chatData = JSON.parse(event.data);
-        const chatIndex = chats.value.findIndex(
-            (chat) => chat.id === chatData.id
-        );
-        if (chatIndex !== -1) {
-            if (search.value) {
-                chats.value[chatIndex] = chatData;
-            } else {
-                chats.value.splice(chatIndex, 1);
-                chats.value.unshift(chatData);
-            }
-        } else if (!search.value) {
+const { wsURL } = useRuntimeConfig().public;
+const { disconnect } = useWebsocket(`${wsURL}/chats/ws`, (event) => {
+    const chatData = JSON.parse(event.data);
+    const chatIndex = chats.value.findIndex((chat) => chat.id === chatData.id);
+    if (chatIndex !== -1) {
+        if (search.value) {
+            chats.value[chatIndex] = chatData;
+        } else {
+            chats.value.splice(chatIndex, 1);
             chats.value.unshift(chatData);
         }
-    };
-
-    ws.onclose = function (e) {
-        console.log(
-            "Socket is closed. Reconnect will be attempted in 1 second.",
-            e.reason
-        );
-        setTimeout(function () {
-            connect();
-        }, 1000);
-    };
-    ws.onerror = function (err) {
-        console.log(err);
-        console.error(
-            "Socket encountered error: ",
-            err.message,
-            "Closing socket"
-        );
-        ws.close();
-    };
-};
-connect();
+    } else if (!search.value) {
+        chats.value.unshift(chatData);
+    }
+});
 </script>
 <style scoped lang="scss">
 .content {

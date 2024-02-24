@@ -1,55 +1,43 @@
 <template>
-    <ion-page>
-        <ion-content class="content">
-            <div class="head">
-                <nuxt-link class="back" to="/tabs/chats">
-                    <Icon name="material-symbols:arrow-back-ios-rounded" />
-                    <span> Назад </span>
-                </nuxt-link>
-                <div>
-                    {{ toUser.name }}
-                </div>
-                <avatar :image="toUser.avatar" class="avatar" />
+    <ion-page class="page-chat-messages">
+        <div class="head">
+            <nuxt-link class="back" to="/tabs/chats">
+                <Icon name="material-symbols:arrow-back-ios-rounded" />
+                <span> Назад </span>
+            </nuxt-link>
+            <div>
+                {{ toUser.name }}
             </div>
-            <div class="wrapper">
-                <div class="messages">
-                    <div
-                        :class="[
-                            'message',
-                            { my: message.from_user.id === userData.id },
-                        ]"
-                        v-for="message in messages"
-                        :key="message.id"
-                    >
-                        <div class="message__text">
-                            {{ message.content }}
-                        </div>
-                        <div class="message__line">
-                            <div class="date">
-                                {{ message.creation_date }}
-                            </div>
-                            <div class="readed">
-                                <Icon
-                                    :name="
-                                        message.readed
-                                            ? 'material-symbols:done-all'
-                                            : 'material-symbols:done'
-                                    "
-                                />
-                            </div>
-                        </div>
-                    </div>
+            <avatar :image="toUser.avatar" class="avatar" />
+        </div>
+        <div class="wrapper">
+            <div class="messages">
+                <chats-message
+                    :message="message"
+                    v-for="message in messages"
+                    :key="message.id"
+                    :from-me="message.from_user.id === userData.id"
+                />
+            </div>
+            <div class="send-message">
+                <auth-input
+                    v-model="newMessage"
+                    placeholder="Введите сообщение"
+                />
+                <div class="send">
+                    <Icon name="material-symbols:send" @click="sendMessage" />
                 </div>
             </div>
-        </ion-content>
+        </div>
     </ion-page>
 </template>
 <script setup>
 import { ChatsService } from "@/client";
-
 import { useAuthStore } from "~/stores/auth";
 const { userData } = useAuthStore();
-const { id } = useRoute().params;
+const router = useRouter();
+const { id } = router.currentRoute.value.params;
+const newMessage = ref("");
 
 const chat = await ChatsService.getChatChatsChatIdGet(id);
 const toUser = getUserToId(userData.id, chat.user_1, chat.user_2);
@@ -57,10 +45,34 @@ const page = ref(1);
 const messages = ref(
     await ChatsService.getMessagesChatsChatIdMessagesGet(id, page.value)
 );
+const { wsURL } = useRuntimeConfig().public;
+const { disconnect } = useWebsocket(
+    `${wsURL}/chats/${id}/messages/ws`,
+    (event) => {
+        const messageData = JSON.parse(event.data);
+        messages.value = messages.value.map((message) =>
+            message.id === messageData.id ? messageData : message
+        );
+    }
+);
+watch(router.currentRoute, disconnect);
+const sending = ref(false);
+const sendMessage = async () => {
+    if (!newMessage.value || sending.value) return;
+    sending.value = true;
+    messages.value.push(
+        await ChatsService.sendMessageChatsChatIdMessagesPost(
+            id,
+            newMessage.value
+        )
+    );
+    newMessage.value = "";
+    sending.value = false;
+};
 </script>
 <style scoped lang="scss">
-.content {
-    --background: #{$secondary};
+.page-chat-messages {
+    background-color: $secondary;
     .head {
         display: flex;
         background-color: white;
@@ -93,25 +105,7 @@ const messages = ref(
             display: flex;
             flex-direction: column;
             gap: 10px;
-            .message {
-                box-sizing: border-box;
-                padding: 0.5rem 1rem;
-                background: #fff;
-                border-radius: 1.125rem 1.125rem 1.125rem 0;
-                min-height: 2.25rem;
-                width: fit-content;
-                max-width: 66%;
-
-                box-shadow: 0 0 2rem rgba(black, 0.075),
-                    0rem 1rem 1rem -1rem rgba(black, 0.1);
-
-                &.my {
-                    margin-left: auto;
-                    border-radius: 1.125rem 1.125rem 0 1.125rem;
-                    background-color: $primary-text;
-                    color: white;
-                }
-            }
+            flex-grow: 1;
         }
 
         .input {
@@ -144,6 +138,23 @@ const messages = ref(
                 font-family: Red hat Display, sans-serif;
                 font-weight: 400;
                 letter-spacing: 0.025em;
+            }
+        }
+        .send-message {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            .send {
+                @include flex-center;
+                background-color: $primary;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                svg {
+                    width: 15px;
+                    height: 15px;
+                    color: white;
+                }
             }
         }
     }
