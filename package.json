@@ -9,7 +9,7 @@
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
-        "generate-client-dev": "openapi --input http://localhost:8000/openapi.json --output ./client --client axios"
+        "generate-client-dev": "openapi --input https://frienda-api.semolik.ru/openapi.json --output ./client --client axios"
     },
     "devDependencies": {
         "@capacitor/cli": "5.6.0",

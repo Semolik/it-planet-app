@@ -64,6 +64,7 @@ export const useAuthStore = defineStore({
                         username,
                         password,
                         name,
+                        verified: true,
                     });
                 this.logined = true;
             } catch (error) {

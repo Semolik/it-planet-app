@@ -1,11 +1,15 @@
 <template>
-    <ion-button class="btn" shape="round">
+    <ion-button @click="handlePushBack" class="btn" shape="round">
         <ion-icon color="light" size="large" :icon="ioniconsArrowBackOutline"></ion-icon>
     </ion-button>
 </template>
 
 <script setup>
+const router = useRouter();
 
+const handlePushBack = () => {
+    router.back();
+};
 </script>
 
 <style scoped lang="scss">

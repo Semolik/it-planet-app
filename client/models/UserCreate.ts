@@ -6,7 +6,7 @@ export type UserCreate = {
     name: string;
     discription?: string;
     verified: boolean;
-    birthdate?: (string | null);
+    birthdate: string;
     register_date: string;
     email: string;
     password: string;

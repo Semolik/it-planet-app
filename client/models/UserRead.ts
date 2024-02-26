@@ -8,7 +8,7 @@ export type UserRead = {
     name: string;
     discription?: string;
     verified: boolean;
-    birthdate?: (string | null);
+    birthdate: string;
     register_date: string;
     id: string;
     email: string;

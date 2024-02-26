@@ -1,27 +1,31 @@
 <template>
-    <auth-input
-        :class="['input', { active: isVisible }]"
-        @click="showSelector"
-        ref="input"
-    ></auth-input>
-    <div class="modal-background" v-show="isVisible" @click="chooseOption" />
+    <auth-input :class="['input', { active: isVisible }]" @click="showSelector"></auth-input>
+    <div class="modal-background" v-show="isVisible" @click="chooseOption"></div>
     <div class="selector" v-show="isVisible">
-        <div class="option" @click="chooseOption" v-for="option in options">
-            {{ option }}
+        <div class="option" @click="chooseOption(city, $event)" v-for="city in cities">
+            {{ city }}
+        </div>
+    </div>
+    <div class="selector" v-show="isVisible">
+        <div class="option" @click="chooseOption(university, $event)" v-for="university in universities">
+            {{ university }}
         </div>
     </div>
 </template>
 
 <script setup>
-const isVisible = ref(false);
+const props = defineProps(["cities", "universities"]);
+const emit = defineEmits(["choice"]);
 
-const options = ref(["option1", "option2", "option3"]);
+const isVisible = ref(false);
 
 const showSelector = () => {
     isVisible.value = true;
 };
 
-const chooseOption = () => {
+const choice = ref('');
+const chooseOption = (object, event) => {
+    choice.value = object;
     isVisible.value = false;
 };
 </script>
@@ -39,8 +43,6 @@ const chooseOption = () => {
     right: 0;
     left: 0;
     z-index: 1;
-    background-color: orangered;
-    opacity: 0.3;
 }
 
 .selector {

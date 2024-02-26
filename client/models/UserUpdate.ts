@@ -6,7 +6,7 @@ export type UserUpdate = {
     name: string;
     discription?: string;
     verified: boolean;
-    birthdate?: (string | null);
+    birthdate: string;
     register_date: string;
     password?: (string | null);
     email?: (string | null);

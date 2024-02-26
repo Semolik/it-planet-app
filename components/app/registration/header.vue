@@ -1,30 +1,24 @@
 <template>
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button color="light"></ion-back-button>
-      </ion-buttons>
-      <ion-title>Регистрация</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="wrapper">
+    <button-back />
+    <div class="title">Регистрация</div>
+  </div>
 </template>
 
 <script setup>
-
 </script>
 
 <style scoped lang="scss">
-ion-header {
-  box-shadow: none;
-}
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 60px;
+  width: 100%;
+  background-color: $primary;
 
-ion-toolbar {
-  --background: #62a87c;
-}
-
-ion-title {
-  --color: #f2f3f4;
-  margin-left: 5vw;
-  font-size: 24px;
+  .title {
+    font-size: 24px;
+  }
 }
 </style>

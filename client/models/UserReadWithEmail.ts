@@ -9,7 +9,7 @@ export type UserReadWithEmail = {
     name: string;
     discription?: string;
     verified: boolean;
-    birthdate?: (string | null);
+    birthdate: string;
     register_date: string;
     id: string;
     is_active?: boolean;
