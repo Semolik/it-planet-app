@@ -1,28 +1,15 @@
 <template>
-  <app-search-card
-    v-for="card in cards"
-    class="card"
-    :card="card"
-    :key="card.id"
-  />
+  <app-search-card v-for="card in searchCards" class="card" :card="card" :key="card.id" />
+  <app-search-card v-for="card in likesCards" class="card" :card="card" :key="card.id" />
   <div class="btns">
-    <app-search-button
-      class="btns_dislike"
-      color="light"
-      :icon="ioniconsThumbsDownSharp"
-      @click="decide('dislike', $event)"
-    />
-    <app-search-button
-      class="btns_like"
-      color="light"
-      :icon="ioniconsThumbsUpSharp"
-      @click="decide('like', $event)"
-    />
+    <app-search-button class="btns_dislike" color="light" :icon="ioniconsThumbsDownSharp"
+      @click="decide('dislike', $event)" />
+    <app-search-button class="btns_like" color="light" :icon="ioniconsThumbsUpSharp" @click="decide('like', $event)" />
   </div>
 </template>
 
 <script setup>
-const props = defineProps(["cards"]);
+const props = defineProps(["searchCards", "likesCards"]);
 const emit = defineEmits(["dislike", "like"]);
 
 const cardProperties = reactive({
@@ -62,8 +49,8 @@ const decide = (choice, event) => {
 
 <style scoped lang="scss">
 .card {
-  width: 88vw;
-  height: calc(88vw / 9 * 16);
+  width: 88%;
+  height: calc(88vw / 3 * 5);
   position: absolute;
   transition: 0.3s;
   transform: translateX(v-bind("cardProperties.shift"));

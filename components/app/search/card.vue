@@ -1,13 +1,6 @@
 <template>
-  <Swiper
-    class="swiper"
-    :modules="[SwiperPagination]"
-    :slides-per-view="1"
-    :loop="false"
-    :pagination="true"
-    :allow-touch-move="false"
-    @swiper="handleSliderInit"
-  >
+  <Swiper class="swiper" :modules="[SwiperPagination]" :slides-per-view="1" :loop="false" :pagination="true"
+    :allow-touch-move="false" @swiper="handleSliderInit">
     <div class="btn_prev" @click="handlePrev"></div>
     <div class="btn_next" @click="handleNext"></div>
     <SwiperSlide class="slide" v-for="photo in card.photos" :key="photo">
@@ -51,7 +44,6 @@ const toggleInfo = () => {
 </script>
 
 <style scoped lang="scss">
-
 .swiper {
   user-select: none;
   --swiper-theme-color: #f2f3f4;
@@ -80,6 +72,7 @@ const toggleInfo = () => {
   z-index: 1;
   user-select: none;
 }
+
 .card img {
   width: 100%;
   height: 100%;
