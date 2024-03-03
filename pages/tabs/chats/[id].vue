@@ -48,7 +48,7 @@ const messagesContainer = ref(null);
 const scrollToBottom = () => {
     messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
 };
-// onMounted(scrollToBottom);
+
 const newMessage = ref("");
 const chat = await ChatsService.getChatChatsChatIdGet(id);
 const toUser = getUserToId(userData.id, chat.user_1, chat.user_2);
