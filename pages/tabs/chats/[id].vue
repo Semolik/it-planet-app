@@ -8,7 +8,11 @@
             <div>
                 {{ toUser.name }}
             </div>
-            <avatar :image="toUser.avatar" class="avatar" />
+            <avatar
+                :image="toUser.avatar"
+                class="avatar"
+                :link="`/tabs/users/${toUser.id}`"
+            />
         </div>
         <ion-content>
             <ion-infinite-scroll
