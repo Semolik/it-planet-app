@@ -34,6 +34,10 @@
                             name="material-symbols:arrow-forward-ios-rounded"
                         ></Icon>
                     </div>
+                    <div class="inputs" @click="logout">
+                        <span>Выйти</span>
+                        <Icon name="material-symbols:logout"></Icon>
+                    </div>
                     <div class="hobbies">
                         <div class="hobby" v-for="hobby in hobbies">
                             {{ hobby.name }}
@@ -47,7 +51,14 @@
 
 <script setup>
 import { HobbiesService } from "@/client";
+import { useAuthStore } from "~/stores/auth";
+const authStore = useAuthStore();
 const hobbies = await HobbiesService.getMyHobbiesHobbiesMyGet();
+const logout = () => {
+    authStore.logout();
+    const router = useRouter();
+    router.push("/auth");
+};
 </script>
 
 <style scoped lang="scss">
