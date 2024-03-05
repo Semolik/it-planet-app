@@ -58,6 +58,27 @@ export class ChatsService {
         });
     }
     /**
+     * Delete Chat
+     * Удаляет чат.
+     * @param chatId ID чата
+     * @returns void
+     * @throws ApiError
+     */
+    public static deleteChatChatsChatIdDelete(
+        chatId: string,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/chats/{chat_id}',
+            path: {
+                'chat_id': chatId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Get Chat
      * Возвращает чат по его ID.
      * @param chatId ID чата

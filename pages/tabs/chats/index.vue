@@ -31,20 +31,20 @@
 <script setup>
 import { ChatsService } from "@/client";
 import { useAuthStore } from "~/stores/auth";
+import { useChatsStore } from "~/stores/chats";
 const { userData } = useAuthStore();
-userData.verified = false;
+const chatsStore = useChatsStore();
 const page = ref(1);
 const search = ref("");
 const chats = ref([]);
-if (!userData?.verified) {
+if (userData?.verified) {
     chats.value = await ChatsService.getChatsChatsGet(page.value);
     watch(search, async (value) => {
         chats.value = await ChatsService.getChatsChatsGet(1, value);
         page.value = 1;
     });
-    const { wsURL } = useRuntimeConfig().public;
-    const { disconnect } = useWebsocket(`${wsURL}/chats/ws`, (event) => {
-        const chatData = JSON.parse(event.data);
+    await chatsStore.subscribeToWebSocket((chatData) => {
+        console.log(chatData);
         const chatIndex = chats.value.findIndex(
             (chat) => chat.id === chatData.id
         );

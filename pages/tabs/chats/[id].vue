@@ -1,18 +1,35 @@
 <template>
     <ion-page class="page-chat-messages" fullscreen>
+        <ion-popover
+            :is-open="moreMenuOpen"
+            @ionPopoverDidDismiss="moreMenuOpen = false"
+            :dismiss-on-select="true"
+        >
+            <div class="more-menu">
+                <nuxt-link :to="`/tabs/users/${toUser.id}`" class="button">
+                    Открыть профиль
+                </nuxt-link>
+                <div class="button" @click="deleteAlertOpen = true">
+                    Удалить чат
+                </div>
+            </div>
+        </ion-popover>
+        <ion-alert
+            :is-open="deleteAlertOpen"
+            header="Удалить чат"
+            :buttons="deleteAlertButtons"
+        ></ion-alert>
         <div class="head">
             <nuxt-link class="back" to="/tabs/chats">
                 <Icon name="material-symbols:arrow-back-ios-rounded" />
                 <span> Назад </span>
             </nuxt-link>
-            <div>
+            <nuxt-link :to="`/tabs/users/${toUser.id}`">
                 {{ toUser.name }}
+            </nuxt-link>
+            <div class="more" @click="moreMenuOpen = !moreMenuOpen">
+                <Icon name="material-symbols:more-horiz" />
             </div>
-            <avatar
-                :image="toUser.avatar"
-                class="avatar"
-                :link="`/tabs/users/${toUser.id}`"
-            />
         </div>
         <ion-content>
             <ion-infinite-scroll
@@ -53,6 +70,7 @@ const scrollToBottom = () => {
     messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
 };
 
+const moreMenuOpen = ref(false);
 const newMessage = ref("");
 const chat = await ChatsService.getChatChatsChatIdGet(id);
 const toUser = getUserToId(userData.id, chat.user_1, chat.user_2);
@@ -62,7 +80,24 @@ const messages = ref(
         await ChatsService.getMessagesChatsChatIdMessagesGet(id, page.value)
     ).reverse()
 );
-
+const deleteAlertOpen = ref(false);
+const deleteAlertButtons = [
+    {
+        text: "Отмена",
+        role: "cancel",
+        handler: () => {
+            deleteAlertOpen.value = false;
+        },
+    },
+    {
+        text: "Удалить",
+        role: "confirm",
+        handler: async () => {
+            await ChatsService.deleteChatChatsChatIdDelete(id);
+            router.push("/tabs/chats");
+        },
+    },
+];
 const { disconnect } = useWebsocket(
     `${wsURL}/chats/${id}/messages/ws`,
     (event) => {
@@ -104,6 +139,25 @@ const sendMessage = async () => {
 };
 </script>
 <style scoped lang="scss">
+ion-popover {
+    --backdrop-opacity: 0.6;
+    --width: 80vw;
+    --background: transparent;
+    .more-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        background-color: $secondary;
+        .button {
+            background-color: white;
+            padding: 10px;
+            text-align: center;
+            color: black;
+            text-decoration: none;
+        }
+    }
+}
+
 .scorll-animaton {
     background-color: $secondary;
 }
@@ -116,9 +170,19 @@ const sendMessage = async () => {
         justify-content: space-between;
         gap: 10px;
         padding: 5px;
-        .avatar {
-            width: 50px;
-            height: 50px;
+        height: 55px;
+        a {
+            color: $primary-text;
+
+            text-decoration: none;
+        }
+        .more {
+            @include flex-center;
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+            margin-right: 10px;
         }
 
         .back {
@@ -138,6 +202,7 @@ const sendMessage = async () => {
         gap: 10px;
         background-color: $secondary;
         padding: 10px;
+        min-height: 100%;
     }
 
     .input {
