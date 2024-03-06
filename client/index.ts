@@ -32,6 +32,7 @@ export type { UserCreate } from './models/UserCreate';
 export type { UserLike } from './models/UserLike';
 export type { UserLikeFull } from './models/UserLikeFull';
 export type { UserRead } from './models/UserRead';
+export type { UserReadAfterRegister } from './models/UserReadAfterRegister';
 export type { UserReadShort } from './models/UserReadShort';
 export type { UserReadWithEmail } from './models/UserReadWithEmail';
 export type { UserUpdate } from './models/UserUpdate';

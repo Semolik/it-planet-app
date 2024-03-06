@@ -6,3 +6,15 @@ $quaternary: hsl(210, 8%, 85%);
 
 $primary-text: #000000;
 $secondary-text: hwb(0 30% 100%);
+@mixin hex-to-rgb($color) {
+    // Remove # from the hex code if present
+    $color: str-slice($color, 2);
+
+    // Extract individual color channels
+    $red: to-number(str-slice($color, 1, 2), 16);
+    $green: to-number(str-slice($color, 3, 4), 16);
+    $blue: to-number(str-slice($color, 5), 16);
+
+    // Output the RGB values
+    $rgb-values: $red, $green, $blue;
+}

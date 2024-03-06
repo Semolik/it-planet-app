@@ -18,11 +18,16 @@ export default defineNuxtConfig({
         },
         download: true,
     },
+
     ssr: false,
+    colorMode: {
+        preference: "light",
+        fallback: "light",
+    },
     app: {
         head: { title: "Frienda" },
     },
-    css: ["assets/styles/ionic.css"],
+    css: ["assets/styles/ionic.scss"],
     vite: {
         css: {
             preprocessorOptions: {

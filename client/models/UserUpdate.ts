@@ -4,10 +4,9 @@
 /* eslint-disable */
 export type UserUpdate = {
     name: string;
-    discription?: string;
-    verified: boolean;
+    description?: string;
     birthdate: string;
-    register_date: string;
+    verified: boolean;
     password?: (string | null);
     email?: (string | null);
     is_active?: (boolean | null);

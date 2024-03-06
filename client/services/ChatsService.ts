@@ -100,6 +100,27 @@ export class ChatsService {
         });
     }
     /**
+     * Get Chat With User
+     * Возвращает чат с пользователем.
+     * @param userId ID пользователя
+     * @returns ChatWithUsers Successful Response
+     * @throws ApiError
+     */
+    public static getChatWithUserChatsUserUserIdGet(
+        userId: string,
+    ): CancelablePromise<ChatWithUsers> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/chats/user/{user_id}',
+            path: {
+                'user_id': userId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Send Message
      * Отправляет сообщение в чат.
      * @param chatId ID чата

@@ -2,12 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Hobby } from './Hobby';
 export type UserReadShort = {
     name: string;
-    discription?: string;
-    verified: boolean;
+    description?: string;
     image?: (string | null);
     age: number;
+    register_date: string;
+    hobbies: Array<Hobby>;
     id: string;
 };
 

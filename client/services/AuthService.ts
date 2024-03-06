@@ -8,7 +8,7 @@ import type { Body_reset_reset_password_auth_reset_password_post } from '../mode
 import type { Body_verify_request_token_auth_request_verify_token_post } from '../models/Body_verify_request_token_auth_request_verify_token_post';
 import type { Body_verify_verify_auth_verify_post } from '../models/Body_verify_verify_auth_verify_post';
 import type { UserCreate } from '../models/UserCreate';
-import type { UserRead } from '../models/UserRead';
+import type { UserReadAfterRegister } from '../models/UserReadAfterRegister';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -108,12 +108,12 @@ export class AuthService {
     /**
      * Verify:Verify
      * @param requestBody
-     * @returns UserRead Successful Response
+     * @returns UserReadAfterRegister Successful Response
      * @throws ApiError
      */
     public static verifyVerifyAuthVerifyPost(
         requestBody: Body_verify_verify_auth_verify_post,
-    ): CancelablePromise<UserRead> {
+    ): CancelablePromise<UserReadAfterRegister> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/verify',
@@ -128,12 +128,12 @@ export class AuthService {
     /**
      * Register:Register
      * @param requestBody
-     * @returns UserRead Successful Response
+     * @returns UserReadAfterRegister Successful Response
      * @throws ApiError
      */
     public static registerRegisterAuthRegisterPost(
         requestBody: UserCreate,
-    ): CancelablePromise<UserRead> {
+    ): CancelablePromise<UserReadAfterRegister> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/auth/register',

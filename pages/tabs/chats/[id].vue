@@ -81,6 +81,15 @@ const messages = ref(
     ).reverse()
 );
 const deleteAlertOpen = ref(false);
+const { disconnect } = useWebsocket(
+    `${wsURL}/chats/${id}/messages/ws`,
+    (event) => {
+        const messageData = JSON.parse(event.data);
+        messages.value = messages.value.map((message) =>
+            message.id === messageData.id ? messageData : message
+        );
+    }
+);
 const deleteAlertButtons = [
     {
         text: "Отмена",
@@ -93,20 +102,13 @@ const deleteAlertButtons = [
         text: "Удалить",
         role: "confirm",
         handler: async () => {
+            disconnect();
             await ChatsService.deleteChatChatsChatIdDelete(id);
-            router.push("/tabs/chats");
+            router.back("/tabs/chats");
         },
     },
 ];
-const { disconnect } = useWebsocket(
-    `${wsURL}/chats/${id}/messages/ws`,
-    (event) => {
-        const messageData = JSON.parse(event.data);
-        messages.value = messages.value.map((message) =>
-            message.id === messageData.id ? messageData : message
-        );
-    }
-);
+
 watch(router.currentRoute, disconnect);
 const is_end = ref(false);
 const ionInfinite = async (ev) => {
@@ -140,8 +142,6 @@ const sendMessage = async () => {
 </script>
 <style scoped lang="scss">
 ion-popover {
-    --backdrop-opacity: 0.6;
-    --width: 80vw;
     --background: transparent;
     .more-menu {
         display: flex;

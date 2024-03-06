@@ -2,15 +2,18 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserCreate = {
+export type UserReadAfterRegister = {
+    image?: (string | null);
+    age: number;
+    register_date: string;
     name: string;
     description?: string;
     birthdate: string;
     verified: boolean;
+    id: string;
     email: string;
-    password: string;
-    is_active?: (boolean | null);
-    is_superuser?: (boolean | null);
-    is_verified?: (boolean | null);
+    is_active?: boolean;
+    is_superuser?: boolean;
+    is_verified?: boolean;
 };
 
