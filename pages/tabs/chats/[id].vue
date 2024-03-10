@@ -72,7 +72,7 @@ const scrollToBottom = () => {
 
 const moreMenuOpen = ref(false);
 const newMessage = ref("");
-const chat = await ChatsService.getChatChatsChatIdGet(id);
+const chat = await ChatsService.getChatChatsChatIdGet(id, true);
 const toUser = getUserToId(userData.id, chat.user_1, chat.user_2);
 const page = ref(1);
 const messages = ref(

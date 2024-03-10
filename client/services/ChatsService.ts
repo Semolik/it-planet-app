@@ -82,17 +82,22 @@ export class ChatsService {
      * Get Chat
      * Возвращает чат по его ID.
      * @param chatId ID чата
+     * @param read Отметить сообщения как прочитанные
      * @returns ChatWithUsers Successful Response
      * @throws ApiError
      */
     public static getChatChatsChatIdGet(
         chatId: string,
+        read: boolean = true,
     ): CancelablePromise<ChatWithUsers> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/chats/{chat_id}',
             path: {
                 'chat_id': chatId,
+            },
+            query: {
+                'read': read,
             },
             errors: {
                 422: `Validation Error`,
@@ -166,6 +171,27 @@ export class ChatsService {
             },
             query: {
                 'page': page,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Read Messages
+     * Отмечает сообщения в чате как прочитанные.
+     * @param chatId ID чата
+     * @returns void
+     * @throws ApiError
+     */
+    public static readMessagesChatsChatIdMessagesReadPost(
+        chatId: string,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/chats/{chat_id}/messages/read',
+            path: {
+                'chat_id': chatId,
             },
             errors: {
                 422: `Validation Error`,

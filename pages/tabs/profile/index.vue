@@ -38,11 +38,25 @@
                         <span>Выйти</span>
                         <Icon name="material-symbols:logout"></Icon>
                     </div>
-                    <div class="hobbies">
-                        <div class="hobby" v-for="hobby in hobbies">
-                            {{ hobby.name }}
+                    <nuxt-link
+                        class="hobbies-container"
+                        to="/tabs/profile/hobbies"
+                    >
+                        <div class="headline">
+                            <div class="text">Интересы</div>
+                            <div class="button">
+                                <Icon
+                                    name="material-symbols:arrow-forward-ios"
+                                ></Icon>
+                            </div>
                         </div>
-                    </div>
+                        <div class="hobbies">
+                            <hobbies-item
+                                v-for="hobby in hobbies"
+                                :hobby="hobby"
+                            />
+                        </div>
+                    </nuxt-link>
                 </div>
             </div>
         </ion-content>
@@ -119,6 +133,44 @@ const logout = () => {
                 color: #5f5f5f;
                 background: white;
                 justify-content: space-between;
+            }
+            .hobbies-container {
+                background-color: rgba($color: white, $alpha: 0.3);
+                padding: 10px;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                color: $primary-text;
+                .headline {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .text {
+                        font-size: 20px;
+                        color: $primary-text;
+                    }
+                    .button {
+                        background-color: white;
+                        @include flex-center;
+                        border-radius: 50%;
+                        width: 30px;
+                        height: 30px;
+                        font-size: 20px;
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                            color: $primary-text;
+                        }
+                    }
+                }
+
+                .hobbies {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 5px;
+                }
             }
         }
     }
