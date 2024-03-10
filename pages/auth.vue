@@ -9,10 +9,12 @@
           <auth-input class="auth-frame__input" v-model="password" type="password" placeholder="Пароль" />
           <white-button @click="submit" :disabled="!isActive" class="auth-frame__submit-btn">Войти</white-button>
         </div>
-        <div class="reg-offer">
-          <div class="reg-offer__title">Нет аккаунта?</div>
+        <div class="auth-problems">
+          <nuxt-link to="/auth">
+            <white-button class="auth-problems__forgot-btn">Забыли пароль?</white-button>
+          </nuxt-link>
           <nuxt-link to="/registration/signup">
-            <white-button class="reg-offer__signup-btn">Регистрация</white-button>
+            <white-button class="auth-problems__signup-btn">Регистрация</white-button>
           </nuxt-link>
         </div>
       </div>
@@ -87,7 +89,7 @@ const submit = async () => {
     height: 46px;
     font-size: 24px;
     box-shadow: 0 0 3px #5f5f5f;
-    margin-top: 25px;
+    margin-top: 15px;
     margin-bottom: 15px;
 
     &:active {
@@ -96,21 +98,28 @@ const submit = async () => {
   }
 }
 
-.reg-offer {
+.auth-problems {
+  width: 100%;
+  padding: 5px;
   color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 
-  &__title {
-    margin-bottom: 5px;
-    color: #f2f3f4;
+  &__forgot-btn,
+  &__signup-btn {
+    height: 40px;
+    width: 42.5vw;
+    box-shadow: 0 0 3px #5f5f5f;
+    font-size: 20px;
+  }
+
+  &__forgot-btn {
+    margin-right: 5px;
   }
 
   &__signup-btn {
-    height: 30px;
-    box-shadow: 0 0 3px #5f5f5f;
+    margin-left: 5px;
   }
 }
 </style>

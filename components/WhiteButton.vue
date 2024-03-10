@@ -15,6 +15,9 @@
     padding: 5px;
     border-radius: 8px;
     user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:active {
         background-color: #f5f5f580;

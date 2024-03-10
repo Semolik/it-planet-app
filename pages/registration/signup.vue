@@ -5,11 +5,16 @@
       <div class="wrapper">
         <div class="reg-area">
           Имя
-          <auth-input
-            class="reg-area__input"
-            v-model="name"
-            placeholder="Введите имя"
-          ></auth-input>
+          <auth-input class="reg-area__input" v-model="name" placeholder="Введите имя"></auth-input>
+          Дата рождения
+          <div class="reg-area__birth-date">
+            <ion-datetime-button :value="birthdate" @ionChange="(date) => {birthdate = date}" class="reg-area__birth-date__btn" datetime="datetime"></ion-datetime-button>
+            {{ birthdate }}
+            <ion-modal :keep-contents-mounted="true">
+              <ion-datetime id="datetime" presentation="date" :prefer-wheel="true"
+                max="2008-12-31T23:59:59"></ion-datetime>
+            </ion-modal>
+          </div>
           <div class="reg-area__tip">
             <div class="reg-area__tip_enter">Введите email</div>
             <Transition>
@@ -18,11 +23,7 @@
               </div>
             </Transition>
           </div>
-          <auth-input
-            class="reg-area__input"
-            v-model="email"
-            placeholder="Email"
-          ></auth-input>
+          <auth-input class="reg-area__input" v-model="email" placeholder="Email"></auth-input>
           <div class="reg-area__tip">
             <div class="reg-area__tip_enter">Придумайте пароль</div>
             <Transition>
@@ -31,36 +32,19 @@
               </div>
             </Transition>
           </div>
-          <auth-input
-            class="reg-area__input"
-            v-model="password"
-            type="password"
-            placeholder="Пароль"
-          ></auth-input>
+          <auth-input class="reg-area__input" v-model="password" type="password" placeholder="Пароль"></auth-input>
           <div class="reg-area__tip">
             <div class="reg-area__tip_enter">Повторите пароль</div>
             <Transition>
-              <div
-                class="reg-area__tip_warning"
-                v-show="isPasswordRepeatWarning"
-              >
+              <div class="reg-area__tip_warning" v-show="isPasswordRepeatWarning">
                 Пароли не совпадают
               </div>
             </Transition>
           </div>
-          <auth-input
-            class="reg-area__input"
-            v-model="passwordRepeat"
-            type="password"
-            placeholder="Повторите пароль"
-          ></auth-input>
+          <auth-input class="reg-area__input" v-model="passwordRepeat" type="password"
+            placeholder="Повторите пароль"></auth-input>
         </div>
-        <white-button
-          @click="sendData"
-          :disabled="!isActive"
-          class="btn-continue"
-          >Продолжить</white-button
-        >
+        <white-button @click="sendData" :disabled="!isActive" class="btn-continue">Продолжить</white-button>
       </div>
     </ion-content>
   </ion-page>
@@ -75,6 +59,8 @@ const name = ref("");
 const email = ref("");
 const password = ref("");
 const passwordRepeat = ref("");
+const birthdate = ref(new Date());
+
 
 const isEmailWarning = computed(
   () => !email.value.includes("@") && email.value != 0
@@ -149,6 +135,20 @@ const sendData = async () => {
       opacity: 0.5;
       padding-bottom: 1px;
     }
+
+    &__birth-date {
+    display: flex;
+
+    &__btn {
+      color: #111111;
+      background-color: #62a87c;
+      border-radius: 8px;
+      font-size: 18px;
+      height: 46px;
+      justify-content: flex-start;
+      width: 100%;
+    }
+  }
   }
 
   &__input {
@@ -172,6 +172,17 @@ ion-nav-link {
 
 .btn-continue {
   width: 100%;
+  height: 46px;
+}
+
+ion-datetime-button::part(native) {
+  color: #5f5f5f;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 24px;
+  margin: 0;
+  padding: 5px 10px;
   height: 46px;
 }
 </style>

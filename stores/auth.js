@@ -23,11 +23,11 @@ export const useAuthStore = defineStore({
             } catch (error) {}
             this.resetSavedData();
         },
-        async login(username, password) {
+        async login(email, password) {
             this.logined = false;
             try {
                 this.userData = await AuthService.authJwtLoginAuthJwtLoginPost({
-                    username: username,
+                    username: email,
                     password: password,
                 });
 
@@ -56,14 +56,15 @@ export const useAuthStore = defineStore({
                 return error;
             }
         },
-        async registerRequest(username, password, name) {
+        async registerRequest(email, password, name, birthdate) {
             this.logined = false;
             try {
                 this.userData =
                     await AuthService.registerRegisterAuthRegisterPost({
-                        username,
+                        email,
                         password,
                         name,
+                        birthdate,
                         verified: true,
                     });
                 this.logined = true;
