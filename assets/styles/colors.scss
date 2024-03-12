@@ -5,7 +5,8 @@ $tertiary: hsl(210, 8%, 90%);
 $quaternary: hsl(210, 8%, 85%);
 
 $primary-text: #000000;
-$secondary-text: hwb(0 30% 100%);
+$tertiary-text: #5f5f5f;
+$secondary-text: hsl(0, 0%, 23%);
 @mixin hex-to-rgb($color) {
     // Remove # from the hex code if present
     $color: str-slice($color, 2);

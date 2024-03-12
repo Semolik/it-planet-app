@@ -1,12 +1,22 @@
 <template>
-  <header class="header">
-    <app-header-button :icon="ioniconsNotificationsOutline" />
+  <header :class="['header', { onlyTitle: hideButtons }]">
+    <app-header-button
+      v-if="!hideButtons"
+      :icon="ioniconsNotificationsOutline"
+    />
     <div class="header__title">Frienda</div>
-    <app-header-button :icon="ioniconsOptionsOutline" />
+    <app-header-button v-if="!hideButtons" :icon="ioniconsOptionsOutline" />
   </header>
 </template>
 
-<script setup></script>
+<script setup>
+defineProps({
+  hideButtons: {
+    type: Boolean,
+    default: false,
+  },
+});
+</script>
 
 <style scoped lang="scss">
 .header {
@@ -20,6 +30,9 @@
   &__title {
     font-family: "Dancing Script", sans-serif;
     font-size: 40px;
+  }
+  &.onlyTitle {
+    justify-content: center;
   }
 }
 </style>
