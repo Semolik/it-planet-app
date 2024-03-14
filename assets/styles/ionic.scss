@@ -41,7 +41,18 @@
     --ion-color-dark-shade: #0f0f0f;
     --ion-color-dark-tint: #292929;
 }
-
+.sc-ion-searchbar-ios-h {
+    padding: 0;
+    min-height: 0;
+    .searchbar-input-container.sc-ion-searchbar-ios {
+        min-height: 40px;
+    }
+}
+.toolbar-title-default {
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+}
 *,
 *:before,
 *:after {

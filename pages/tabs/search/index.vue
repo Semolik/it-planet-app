@@ -1,18 +1,68 @@
 <template>
     <ion-page>
-        <app-header />
+        <app-header @options="filtersModalOpen = true" />
         <ion-content class="content">
             <div class="toggle-wrapper">
                 <div class="toggle-search">
-                    <div class="toggle-search__search" @click="toggleSearch">поиск</div>
+                    <div class="toggle-search__search" @click="toggleSearch">
+                        поиск
+                    </div>
                     |
-                    <div class="toggle-search__likes" @click="toggleLikes">лайки</div>
+                    <div class="toggle-search__likes" @click="toggleLikes">
+                        лайки
+                    </div>
                 </div>
             </div>
             <div class="cards-wrapper">
-                <app-search v-if="isActive" @dislike="dislike" @like="like" :searchCards="searchCards" />
-                <app-search v-else @dislike="dislike" @like="like" :likesCards="likesCards" />
+                <app-search
+                    v-if="isActive"
+                    @dislike="dislike"
+                    @like="like"
+                    :searchCards="searchCards"
+                />
+                <app-search
+                    v-else
+                    @dislike="dislike"
+                    @like="like"
+                    :likesCards="likesCards"
+                />
             </div>
+            <ion-popover
+                :is-open="filtersModalOpen"
+                @ionPopoverDidDismiss="filtersModalOpen = false"
+            >
+                <div class="filters">
+                    <div class="headline">Фильтры</div>
+                    <div
+                        @click="hobbiesSelectOpen = true"
+                        class="filters-button"
+                    >
+                        Выбрать хобби
+                        <template v-if="filters.hobbies.length > 0">
+                            ({{ selectedHobbiesString }})
+                        </template>
+                    </div>
+                    <hobbies-select
+                        v-model:active="hobbiesSelectOpen"
+                        :selected-hobbies="filters.hobbies"
+                        @add:hobby="
+                            (hobby) => {
+                                filters.hobbies.push(hobby);
+                            }
+                        "
+                        @remove:hobby="
+                            (hobby) => {
+                                filters.hobbies = filters.hobbies.filter(
+                                    (h) => h.id !== hobby.id
+                                );
+                            }
+                        "
+                    />
+                    <div class="filters-button clear" @click="clearFilters">
+                        Очистить фильтры
+                    </div>
+                </div>
+            </ion-popover>
         </ion-content>
     </ion-page>
 </template>
@@ -21,6 +71,21 @@
 definePageMeta({
     alias: ["/"],
 });
+const hobbiesSelectOpen = ref(false);
+const filtersModalOpen = ref(false);
+const filters = reactive({
+    hobbies: [],
+    institutions: [],
+});
+const clearFilters = () => {
+    filters.hobbies = [];
+    filters.institutions = [];
+    filtersModalOpen.value = false;
+};
+const selectedHobbiesString = computed(() => {
+    return filters.hobbies.map((hobby) => hobby.name).join(", ");
+});
+
 const searchCards = ref([
     {
         id: 1,
@@ -131,12 +196,12 @@ const toggleSearch = () => {
     isActive.value = true;
     searchOpacity.value = 1;
     likesOpacity.value = 0.5;
-}
+};
 const toggleLikes = () => {
     isActive.value = false;
     searchOpacity.value = 0.5;
     likesOpacity.value = 1;
-}
+};
 
 const dislike = () => {
     if (isActive.value == true) {
@@ -156,6 +221,35 @@ const like = () => {
 </script>
 
 <style scoped lang="scss">
+.filters {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .hobby {
+        display: flex;
+        padding: 10px;
+    }
+
+    .empty {
+        @include flex-center;
+        flex-grow: 1;
+    }
+
+    .filters-button {
+        padding: 10px;
+        background-color: $primary;
+        color: $secondary;
+        border-radius: 10px;
+        text-align: center;
+
+        &.clear {
+            background-color: $tertiary;
+            color: $primary-text;
+        }
+    }
+}
 .content {
     --background: linear-gradient(180deg, #62a87c, #f2f3f4) no-repeat;
 }

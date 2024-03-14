@@ -39,9 +39,9 @@
                         <span>Выйти</span>
                         <Icon name="material-symbols:logout"></Icon>
                     </div>
-                    <nuxt-link
+                    <div
                         class="hobbies-container"
-                        to="/tabs/profile/hobbies"
+                        @click="hobbiesSelectOpen = true"
                     >
                         <div class="headline">
                             <div class="text">Интересы</div>
@@ -57,7 +57,19 @@
                                 :hobby="hobby"
                             />
                         </div>
-                    </nuxt-link>
+                    </div>
+                    <hobbies-select
+                        v-model:active="hobbiesSelectOpen"
+                        :selected-hobbies="userData.hobbies"
+                        @update:selected-hobbies="onUpdateHobbies"
+                        @add:hobby="
+                            async (hobby) => await authStore.addHobby(hobby.id)
+                        "
+                        @remove:hobby="
+                            async (hobby) =>
+                                await authStore.removeHobby(hobby.id)
+                        "
+                    />
                 </div>
             </div>
         </ion-content>
@@ -69,6 +81,7 @@ import { storeToRefs } from "pinia";
 import { UsersService } from "@/client";
 import { useAuthStore } from "~/stores/auth";
 const authStore = useAuthStore();
+const hobbiesSelectOpen = ref(false);
 const { userData } = storeToRefs(authStore);
 const logout = () => {
     authStore.logout();

@@ -3,7 +3,10 @@
         <app-header />
         <ion-content class="content">
             <div class="wrapper" v-if="userData?.verified">
-                <auth-input placeholder="Поиск" v-model="search" />
+                <ion-searchbar
+                    v-model="search"
+                    placeholder="Поиск"
+                ></ion-searchbar>
                 <div class="chats">
                     <chats-chat
                         v-for="chat in chats"
