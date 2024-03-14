@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { AuthService, UsersService } from "@/client";
+import { AuthService, UsersService, HobbiesService } from "@/client";
 
 export const useAuthStore = defineStore({
     id: "auth",
@@ -70,6 +70,29 @@ export const useAuthStore = defineStore({
                 this.logined = true;
             } catch (error) {
                 this.resetSavedData();
+                return error;
+            }
+        },
+        async addHobby(hobby_id) {
+            try {
+                this.userData.hobbies.push(
+                    await HobbiesService.addMyHobbyHobbiesMyHobbyIdPost(
+                        hobby_id
+                    )
+                );
+            } catch (error) {
+                return error;
+            }
+        },
+        async removeHobby(hobby_id) {
+            try {
+                this.userData.hobbies = this.userData.hobbies.filter(
+                    (hobby) => hobby.id !== hobby_id
+                );
+                await HobbiesService.deleteMyHobbyHobbiesMyHobbyIdDelete(
+                    hobby_id
+                );
+            } catch (error) {
                 return error;
             }
         },
