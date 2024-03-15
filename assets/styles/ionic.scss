@@ -52,6 +52,10 @@
     min-height: 54px;
     display: flex;
     align-items: center;
+
+    .title-default {
+        margin-left: 10px;
+    }
 }
 *,
 *:before,

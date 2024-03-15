@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ChageOnApproveUserData = {
+export type HobbyWithLike = {
     name: string;
-    birthdate: string;
+    id: string;
+    liked?: boolean;
 };
 

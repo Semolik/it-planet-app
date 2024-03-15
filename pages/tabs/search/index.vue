@@ -58,6 +58,35 @@
                             }
                         "
                     />
+                    <div class="no-institution" v-if="!userData.institution">
+                        Подтвердите профиль, чтобы выбрать институты
+                    </div>
+
+                    <div
+                        @click="
+                            () =>
+                                userData.institution &&
+                                (institutionsSelectOpen = true)
+                        "
+                        :class="[
+                            'filters-button',
+                            { disabled: !userData.institution },
+                        ]"
+                    >
+                        <span class="text">
+                            Выбрать институты
+                            <template v-if="filters.institutions.length > 0">
+                                ({{ selectedInstitutionsString }})
+                            </template>
+                        </span>
+                    </div>
+
+                    <institution-select
+                        v-model:active="institutionsSelectOpen"
+                        v-model:selected-institutions="filters.institutions"
+                        :city-id="userData.institution.city.id"
+                        v-if="userData.institution"
+                    />
                     <div class="filters-button clear" @click="clearFilters">
                         Очистить фильтры
                     </div>
@@ -68,10 +97,15 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "~~/stores/auth";
+
+const authStore = useAuthStore();
+const { userData } = toRefs(authStore);
 definePageMeta({
     alias: ["/"],
 });
 const hobbiesSelectOpen = ref(false);
+const institutionsSelectOpen = ref(false);
 const filtersModalOpen = ref(false);
 const filters = reactive({
     hobbies: [],
@@ -84,6 +118,11 @@ const clearFilters = () => {
 };
 const selectedHobbiesString = computed(() => {
     return filters.hobbies.map((hobby) => hobby.name).join(", ");
+});
+const selectedInstitutionsString = computed(() => {
+    return filters.institutions
+        .map((institution) => institution.name)
+        .join(", ");
 });
 
 const searchCards = ref([
@@ -248,6 +287,20 @@ const like = () => {
             background-color: $tertiary;
             color: $primary-text;
         }
+
+        &.disabled {
+            background-color: $senary;
+            color: $primary-text;
+            .text {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .no-institution {
+        font-size: 14px;
+        text-align: center;
+        color: $secondary-text;
     }
 }
 .content {

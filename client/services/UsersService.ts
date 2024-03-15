@@ -6,6 +6,7 @@ import type { Body_update_user_me_image_users_me_image_put } from '../models/Bod
 import type { ImageInfo } from '../models/ImageInfo';
 import type { UserLike } from '../models/UserLike';
 import type { UserRead } from '../models/UserRead';
+import type { UserReadInstitution } from '../models/UserReadInstitution';
 import type { UserReadShort } from '../models/UserReadShort';
 import type { UserReadWithEmail } from '../models/UserReadWithEmail';
 import type { UserUpdate } from '../models/UserUpdate';
@@ -15,10 +16,10 @@ import { request as __request } from '../core/request';
 export class UsersService {
     /**
      * Users:Current User
-     * @returns UserReadWithEmail Successful Response
+     * @returns UserReadInstitution Successful Response
      * @throws ApiError
      */
-    public static usersCurrentUserUsersMeGet(): CancelablePromise<UserReadWithEmail> {
+    public static usersCurrentUserUsersMeGet(): CancelablePromise<UserReadInstitution> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/users/me',

@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Hobby } from '../models/Hobby';
+import type { HobbyWithLike } from '../models/HobbyWithLike';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -32,13 +33,13 @@ export class HobbiesService {
      * Возвращает список хобби, отсортированный по количеству пользователей, занимающихся этим хобби.
      * @param page
      * @param query
-     * @returns Hobby Successful Response
+     * @returns HobbyWithLike Successful Response
      * @throws ApiError
      */
     public static getHobbiesHobbiesGet(
         page: number,
         query?: string,
-    ): CancelablePromise<Array<Hobby>> {
+    ): CancelablePromise<Array<HobbyWithLike>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/hobbies',
@@ -54,10 +55,10 @@ export class HobbiesService {
     /**
      * Get My Hobbies
      * Возвращает список хобби, которыми занимается текущий пользователь.
-     * @returns Hobby Successful Response
+     * @returns HobbyWithLike Successful Response
      * @throws ApiError
      */
-    public static getMyHobbiesHobbiesMyGet(): CancelablePromise<Array<Hobby>> {
+    public static getMyHobbiesHobbiesMyGet(): CancelablePromise<Array<HobbyWithLike>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/hobbies/my',
@@ -134,12 +135,12 @@ export class HobbiesService {
      * Get Hobby
      * Возвращает хобби по его id.
      * @param hobbyId
-     * @returns Hobby Successful Response
+     * @returns HobbyWithLike Successful Response
      * @throws ApiError
      */
     public static getHobbyHobbiesHobbyIdGet(
         hobbyId: string,
-    ): CancelablePromise<Hobby> {
+    ): CancelablePromise<HobbyWithLike> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/hobbies/{hobby_id}',
