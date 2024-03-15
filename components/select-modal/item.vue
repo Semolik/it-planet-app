@@ -1,24 +1,28 @@
 <template>
     <ion-item>
         <ion-checkbox
+            :class="{ single: single }"
+            mode="ios"
             @ionChange="
                 (e) => emit('change', { item, checked: e.detail.checked })
             "
             :checked="isSelected"
         >
             {{ name }}
-        </ion-checkbox></ion-item
-    >
+        </ion-checkbox>
+    </ion-item>
 </template>
 <script setup>
-const { selectedItems, item, getName } = defineProps({
+const props = defineProps({
     item: Object,
     selectedItems: Array,
     getName: Function,
+    single: Boolean,
 });
-const name = computed(() => getName(item));
+const { selectedItems, item } = toRefs(props);
+const name = computed(() => props.getName(item.value));
 const emit = defineEmits(["change"]);
 const isSelected = computed(() => {
-    return selectedItems.map((item) => item.id).includes(item.id);
+    return selectedItems.value.map((item) => item.id).includes(item.value.id);
 });
 </script>

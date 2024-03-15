@@ -3,9 +3,10 @@
         v-model:active="active"
         :fetch="fetchHobbies"
         title="Выберите институты"
-        :selected-items="selectedInstitutions"
+        v-model:selected-items="selectedInstitutions"
         @add="addInstitution"
         @remove="removeInstitution"
+        :single="single"
     />
 </template>
 <script setup>
@@ -14,18 +15,21 @@ const props = defineProps({
     active: Boolean,
     selectedInstitutions: Array,
     cityId: String,
+    single: Boolean,
 });
-const { selectedInstitutions, cityId } = toRefs(props);
+const { selectedInstitutions, cityId, single } = toRefs(props);
 const emit = defineEmits(["update:active", "update:selectedInstitutions"]);
 const active = computed({
     get: () => props.active,
     set: (value) => emit("update:active", value),
 });
 const addInstitution = (institution) => {
-    emit("update:selectedInstitutions", [
-        ...selectedInstitutions.value,
-        institution,
-    ]);
+    emit(
+        "update:selectedInstitutions",
+        single.value
+            ? [institution]
+            : [...selectedInstitutions.value, institution]
+    );
 };
 const removeInstitution = (institution) => {
     emit(

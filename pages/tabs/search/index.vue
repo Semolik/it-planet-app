@@ -87,6 +87,7 @@
                         :city-id="userData.institution.city.id"
                         v-if="userData.institution"
                     />
+
                     <div class="filters-button clear" @click="clearFilters">
                         Очистить фильтры
                     </div>
@@ -98,7 +99,7 @@
 
 <script setup>
 import { useAuthStore } from "~~/stores/auth";
-
+const institutions = ref([]);
 const authStore = useAuthStore();
 const { userData } = toRefs(authStore);
 definePageMeta({

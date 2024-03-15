@@ -15,8 +15,8 @@ const props = defineProps({
     active: Boolean,
     selectedHobbies: Array,
 });
-const { selectedHobbies } = toRefs(props);
 const emit = defineEmits(["update:active", "add:hobby", "remove:hobby"]);
+
 const active = computed({
     get: () => props.active,
     set: (value) => emit("update:active", value),

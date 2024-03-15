@@ -1,5 +1,5 @@
 <template>
-    <ion-modal ref="modal" :is-open="active">
+    <ion-modal ref="modal" :is-open="active" mode="ios">
         <ion-header>
             <ion-toolbar>
                 <ion-title>
@@ -18,8 +18,8 @@
                     mode="ios"
                     v-model="search"
                     placeholder="Поиск"
-                ></ion-searchbar
-                ><ion-list>
+                />
+                <ion-list>
                     <select-modal-item
                         v-for="item in items"
                         :key="item.id"
@@ -27,6 +27,7 @@
                         @change="onChange"
                         :selected-items="selectedItems"
                         :get-name="getName"
+                        :single="single"
                     />
                 </ion-list>
                 <div v-if="items.length === 0" class="empty">
@@ -54,6 +55,10 @@ const props = defineProps({
         type: Function,
         default: (item) => item.name,
     },
+    single: {
+        type: Boolean,
+        default: false,
+    },
 });
 const loading = ref(true);
 const { selectedItems } = toRefs(props);
@@ -66,10 +71,13 @@ const active = computed({
 const modal = ref();
 const search = ref("");
 const items = ref([]);
-onMounted(async () => {
-    loading.value = true;
-    items.value = await props.fetch(1);
-    loading.value = false;
+watch(active, async (value) => {
+    if (value) {
+        loading.value = true;
+        items.value = [];
+        items.value = await props.fetch(1);
+        loading.value = false;
+    }
 });
 const is_end = ref(false);
 const page = ref(1);
