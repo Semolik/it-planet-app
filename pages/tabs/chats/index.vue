@@ -1,11 +1,11 @@
 <template>
     <ion-page>
-        <app-header />
         <ion-content class="content">
             <div class="wrapper" v-if="userData?.verified">
                 <ion-searchbar
                     v-model="search"
                     placeholder="Поиск"
+                    mode="ios"
                 ></ion-searchbar>
                 <div class="chats">
                     <chats-chat

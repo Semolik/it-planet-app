@@ -4,11 +4,20 @@
         <ion-content class="content">
             <div class="toggle-wrapper">
                 <div class="toggle-search">
-                    <div class="toggle-search__search" @click="toggleSearch">
+                    <div
+                        :class="['toggle-search__button', { active: isActive }]"
+                        @click="isActive = true"
+                    >
                         поиск
                     </div>
                     |
-                    <div class="toggle-search__likes" @click="toggleLikes">
+                    <div
+                        :class="[
+                            'toggle-search__button',
+                            { active: !isActive },
+                        ]"
+                        @click="isActive = false"
+                    >
                         лайки
                     </div>
                 </div>
@@ -99,7 +108,7 @@
 
 <script setup>
 import { useAuthStore } from "~~/stores/auth";
-const institutions = ref([]);
+
 const authStore = useAuthStore();
 const { userData } = toRefs(authStore);
 definePageMeta({
@@ -232,17 +241,6 @@ const isActive = ref(true);
 const searchOpacity = ref(1);
 const likesOpacity = ref(0.5);
 
-const toggleSearch = () => {
-    isActive.value = true;
-    searchOpacity.value = 1;
-    likesOpacity.value = 0.5;
-};
-const toggleLikes = () => {
-    isActive.value = false;
-    searchOpacity.value = 0.5;
-    likesOpacity.value = 1;
-};
-
 const dislike = () => {
     if (isActive.value == true) {
         searchCards.value.shift();
@@ -320,15 +318,14 @@ const like = () => {
         align-items: center;
         color: #f2f3f4;
         font-size: 24px;
+        gap: 10px;
 
-        &__likes {
-            padding-left: 20px;
-            opacity: v-bind(likesOpacity);
-        }
+        &__button {
+            opacity: 0.5;
 
-        &__search {
-            padding-right: 20px;
-            opacity: v-bind(searchOpacity);
+            &.active {
+                opacity: 1;
+            }
         }
     }
 }
