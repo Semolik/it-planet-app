@@ -42,7 +42,9 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         public: {
-            wsURL: "wss://frienda-api.semolik.ru",
+            wsURL: process.env.LOCAL_SERVER
+                ? "ws://localhost:3000/api"
+                : "wss://frienda-api.semolik.ru",
         },
     },
     proxy: {
@@ -51,7 +53,9 @@ export default defineNuxtConfig({
         },
         proxies: {
             "/api": {
-                target: "https://frienda-api.semolik.ru",
+                target: process.env.LOCAL_SERVER
+                    ? "http://localhost:8000"
+                    : "https://frienda-api.semolik.ru",
                 changeOrigin: true,
                 prependPath: true,
                 rewrite: (path: string) => path.replace(/^\/api/, ""),

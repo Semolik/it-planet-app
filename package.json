@@ -5,6 +5,7 @@
     "scripts": {
         "build": "nuxt build",
         "dev": "nuxt dev",
+        "dev-local": "cross-env LOCAL_SERVER=true nuxt dev",
         "devhost": "nuxt dev --host",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
@@ -32,6 +33,7 @@
         "@nuxt/ui": "^2.12.3",
         "@pinia/nuxt": "^0.5.1",
         "axios": "^1.6.7",
+        "cross-env": "^7.0.3",
         "nuxt-icon": "^0.6.8",
         "nuxt-swiper": "^1.2.2",
         "openapi-typescript-codegen": "^0.27.0",
