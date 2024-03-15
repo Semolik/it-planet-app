@@ -15,6 +15,7 @@
         <ion-content class="content">
             <div class="wrapper">
                 <ion-searchbar
+                    mode="ios"
                     v-model="search"
                     placeholder="Поиск"
                 ></ion-searchbar
@@ -28,9 +29,11 @@
                         :get-name="getName"
                     />
                 </ion-list>
-                <div class="empty" v-if="items.length === 0">
-                    Ничего не найдено
+                <div v-if="items.length === 0" class="empty">
+                    <template v-if="!loading"> Ничего не найдено </template>
+                    <ion-spinner v-else></ion-spinner>
                 </div>
+
                 <ion-infinite-scroll
                     @ionInfinite="ionInfinite"
                     :disabled="is_end"
@@ -52,6 +55,7 @@ const props = defineProps({
         default: (item) => item.name,
     },
 });
+const loading = ref(true);
 const { selectedItems } = toRefs(props);
 const emit = defineEmits(["update:active", "add", "remove"]);
 const active = computed({
@@ -61,13 +65,21 @@ const active = computed({
 
 const modal = ref();
 const search = ref("");
-const items = ref(await props.fetch(1));
+const items = ref([]);
+onMounted(async () => {
+    loading.value = true;
+    items.value = await props.fetch(1);
+    loading.value = false;
+});
 const is_end = ref(false);
 const page = ref(1);
 watch(search, async (value) => {
+    loading.value = true;
+    items.value = [];
     page.value = 1;
     is_end.value = false;
     items.value = await props.fetch(page.value, value);
+    loading.value = false;
 });
 const onChange = ({ item, checked }) => {
     if (checked) {
@@ -82,6 +94,7 @@ const ionInfinite = async (ev) => {
         return;
     }
     page.value++;
+    loading.value = true;
     const newitems = await props.fetch(page.value, search.value);
     if (newitems.length === 0) {
         is_end.value = true;
@@ -89,6 +102,7 @@ const ionInfinite = async (ev) => {
         items.value = [...items.value, ...newitems];
     }
     ev.target.complete();
+    loading.value = false;
 };
 </script>
 <style scoped lang="scss">
