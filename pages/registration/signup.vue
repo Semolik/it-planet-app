@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <app-registration-header />
+        <app-registration-header :title="'Регистрация'" />
         <ion-content class="content">
             <div class="wrapper">
                 <div class="reg-area">
@@ -16,7 +16,6 @@
                             class="reg-area__birth-date__btn"
                             datetime="datetime"
                         ></ion-datetime-button>
-                        {{ birthdate }}
                         <ion-modal :keep-contents-mounted="true">
                             <ion-datetime
                                 @ionChange="
@@ -84,12 +83,20 @@
                     ></auth-input>
                 </div>
                 <white-button
-                    @click="sendData"
+                    @click="toggleVerify"
                     :disabled="!isActive"
                     class="btn-continue"
                     >Продолжить</white-button
                 >
             </div>
+            <Transition>
+                <email-verify
+                    v-if="submitted"
+                    @hideVerify="toggleVerify"
+                    :email="email"
+                    class="email-verify"
+                ></email-verify>
+            </Transition>
         </ion-content>
     </ion-page>
 </template>
@@ -104,6 +111,7 @@ const name = ref("");
 const email = ref("");
 const password = ref("");
 const passwordRepeat = ref("");
+const submitted = ref(false);
 
 const minAge = 16;
 const minDate = computed(() => {
@@ -132,12 +140,17 @@ const isActive = computed(
         email.value.includes("@")
 );
 
+const toggleVerify = () => {
+    submitted.value = !submitted.value;
+};
+
 const sendData = async () => {
     if (!isActive.value) return;
     const error = await authStore.registerRequest(
         email.value,
         password.value,
-        name.value
+        name.value,
+        birthdate.value
     );
     if (error) {
         const alert = await alertController.create({
@@ -149,7 +162,7 @@ const sendData = async () => {
         alert.present();
     } else {
         const router = useRouter();
-        router.push("/registration/userinfo");
+        router.push("/registration/emailverify");
     }
 };
 </script>
@@ -223,6 +236,12 @@ ion-nav-link {
 .btn-continue {
     width: 100%;
     height: 46px;
+}
+
+.email-verify {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 ion-datetime-button::part(native) {

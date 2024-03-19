@@ -1,5 +1,5 @@
 <template>
-  <app-registration-header />
+  <app-registration-header :title="'Регистрация'" />
   <ion-content class="content">
     <div class="wrapper">
       <div class="reg-area">

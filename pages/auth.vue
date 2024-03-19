@@ -10,8 +10,8 @@
           <white-button @click="submit" :disabled="!isActive" class="auth-frame__submit-btn">Войти</white-button>
         </div>
         <div class="auth-problems">
-          <nuxt-link to="/auth">
-            <white-button class="auth-problems__forgot-btn">Забыли пароль?</white-button>
+          <nuxt-link to="/forgot/email">
+            <white-button class="auth-problems__forgot-btn">Сброс пароля</white-button>
           </nuxt-link>
           <nuxt-link to="/registration/signup">
             <white-button class="auth-problems__signup-btn">Регистрация</white-button>
