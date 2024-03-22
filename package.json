@@ -3,14 +3,14 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "nuxt build",
+        "build": "nuxt generate && npx cap copy && npx cap sync && npx cap open android",
         "dev": "nuxt dev",
         "dev-local": "cross-env LOCAL_SERVER=true nuxt dev",
         "devhost": "nuxt dev --host",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
-        "generate-client-host": "openapi --input https://frienda-api.semolik.ru/openapi.json --output ./client --client axios",
+        "generate-client-host": "openapi --input https://api.frienda.website/openapi.json --output ./client --client axios",
         "generate-client-local": "openapi --input http://localhost:8000/openapi.json --output ./client --client axios"
     },
     "devDependencies": {

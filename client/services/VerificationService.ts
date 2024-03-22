@@ -60,10 +60,10 @@ export class VerificationService {
     }
     /**
      * Get User Verification Request
-     * @returns VerificationRequest Successful Response
+     * @returns any Successful Response
      * @throws ApiError
      */
-    public static getUserVerificationRequestVerificationMeGet(): CancelablePromise<VerificationRequest> {
+    public static getUserVerificationRequestVerificationMeGet(): CancelablePromise<(VerificationRequest | null)> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/verification/me',

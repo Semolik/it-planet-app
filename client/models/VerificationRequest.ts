@@ -14,5 +14,7 @@ export type VerificationRequest = {
     institution: Institution;
     real_photo: string;
     id_photo: string;
+    name: string;
+    birthdate: string;
 };
 

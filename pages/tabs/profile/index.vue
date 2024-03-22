@@ -1,5 +1,5 @@
 <template>
-    <ion-page>
+    <ion-page class="page">
         <app-header hideButtons />
         <ion-content class="content">
             <div class="wrapper">
@@ -23,16 +23,16 @@
                             name="material-symbols:arrow-forward-ios-rounded"
                         ></Icon>
                     </nuxt-link>
-                    <div class="inputs" @click="updateEmailModalOpened = true">
+                    <div
+                        class="inputs"
+                        @click="updatePasswordModalOpened = true"
+                    >
                         <span>Изменить почту</span>
                         <Icon
                             name="material-symbols:arrow-forward-ios-rounded"
                         ></Icon>
                     </div>
-                    <div
-                        class="inputs"
-                        @click="updatePasswordModalOpened = true"
-                    >
+                    <div class="inputs" @click="updateEmailModalOpened = true">
                         <span>Изменить пароль</span>
                         <Icon
                             name="material-symbols:arrow-forward-ios-rounded"
@@ -75,6 +75,9 @@
                     <update-mail-modal
                         v-model:active="updateEmailModalOpened"
                     />
+                    <update-password-modal
+                        v-model:active="updatePasswordModalOpened"
+                    />
                 </div>
             </div>
         </ion-content>
@@ -111,18 +114,19 @@ const passwordCorrect = computed(
 
 <style scoped lang="scss">
 .content {
-    --background: linear-gradient(
-            180deg,
-            #62a87c,
-            color-mix(in srgb, #62a87c, #f2f3f4)
-        )
-        no-repeat;
     .wrapper {
         display: flex;
         flex-direction: column;
         padding-top: 30px;
         padding-inline: 15px;
         gap: 20px;
+        height: 100%;
+        background: linear-gradient(
+                180deg,
+                #62a87c,
+                color-mix(in srgb, #62a87c, #f2f3f4)
+            )
+            no-repeat;
         .profile-avatar-wrapper {
             display: flex;
             justify-content: center;
