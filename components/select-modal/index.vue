@@ -31,7 +31,9 @@
                     />
                 </ion-list>
                 <div v-if="items.length === 0" class="empty">
-                    <template v-if="!loading"> Ничего не найдено </template>
+                    <template v-if="!loading">
+                        {{ search ? "Ничего не найдено" : "Список пуст" }}
+                    </template>
                     <ion-spinner v-else></ion-spinner>
                 </div>
 

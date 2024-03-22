@@ -2,6 +2,7 @@ const messages = {
     RESET_PASSWORD_BAD_TOKEN: "Запрос на сброс пароля устарел.",
     VERIFY_USER_ALREADY_VERIFIED: "Пользователь уже подтвержден.",
     LOGIN_BAD_CREDENTIALS: "Неверный логин или пароль.",
+    Unauthorized: "Вы не авторизованы.",
 };
 const getErrorMessage = (error_code) => {
     return messages[error_code] || error_code;
@@ -9,7 +10,11 @@ const getErrorMessage = (error_code) => {
 const HandleAxiosError = (error, errorText) => {
     if (error.response) {
         let status = error.response.status;
-        let message = error.response.data?.detail || errorText || error.message;
+        let message =
+            error.response.detail ||
+            error.response.data?.detail ||
+            errorText ||
+            error.message;
         return {
             message: Array.isArray(message)
                 ? message

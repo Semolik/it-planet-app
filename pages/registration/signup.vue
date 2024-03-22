@@ -16,7 +16,7 @@
                             class="reg-area__birth-date__btn"
                             datetime="datetime"
                         ></ion-datetime-button>
-                        <ion-modal :keep-contents-mounted="true">
+                        <ion-modal :keep-contents-mounted="true" mode="ios">
                             <ion-datetime
                                 @ionChange="
                                     (date) => {
@@ -83,29 +83,22 @@
                     ></auth-input>
                 </div>
                 <white-button
-                    @click="toggleVerify"
+                    @click="sendData"
                     :disabled="!isActive"
                     class="btn-continue"
-                    >Продолжить</white-button
                 >
+                    Продолжить
+                </white-button>
             </div>
-            <Transition>
-                <email-verify
-                    v-if="submitted"
-                    @hideVerify="toggleVerify"
-                    :email="email"
-                    class="email-verify"
-                ></email-verify>
-            </Transition>
         </ion-content>
     </ion-page>
 </template>
 
 <script setup>
-import { useAuthStore } from "~~/stores/auth";
+import { useAuthStore } from "@/stores/auth";
 import { alertController } from "@ionic/vue";
 import { computed } from "vue";
-
+const router = useRouter();
 const authStore = useAuthStore();
 const name = ref("");
 const email = ref("");
@@ -121,7 +114,7 @@ const minDate = computed(() => {
 });
 const birthdate = ref(minDate.value);
 const isEmailWarning = computed(
-    () => !email.value.includes("@") && email.value != 0
+    () => email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
 );
 
 const isPasswordWarning = computed(
@@ -137,12 +130,9 @@ const isActive = computed(
         name.value != 0 &&
         password.value == passwordRepeat.value &&
         password.value &&
-        email.value.includes("@")
+        email.value &&
+        !isEmailWarning.value
 );
-
-const toggleVerify = () => {
-    submitted.value = !submitted.value;
-};
 
 const sendData = async () => {
     if (!isActive.value) return;
@@ -161,8 +151,27 @@ const sendData = async () => {
         });
         alert.present();
     } else {
-        const router = useRouter();
-        router.push("/registration/emailverify");
+        const error = await authStore.login(email.value, password.value);
+        if (error) {
+            const alert = await alertController.create({
+                message: HandleOpenApiError(error).message,
+                htmlAttributes: {
+                    "aria-label": "alert dialog",
+                },
+            });
+            alert.present();
+        } else {
+            const alert = await alertController.create({
+                buttons: ["OK"],
+                message: `На адрес ${email.value} отправлено письмо с ссылкой. Для подтверждения аккаунта перейдите по ней.`,
+                htmlAttributes: {
+                    "aria-label": "alert dialog",
+                },
+            });
+            alert.present();
+            router.push("/registration/userInfo");
+            submitted.value = true;
+        }
     }
 };
 </script>

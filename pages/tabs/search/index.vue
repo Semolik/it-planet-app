@@ -90,7 +90,7 @@
                         </span>
                     </div>
 
-                    <institution-select
+                    <select-modal-institution
                         v-model:active="institutionsSelectOpen"
                         v-model:selected-institutions="filters.institutions"
                         :city-id="userData.institution.city.id"

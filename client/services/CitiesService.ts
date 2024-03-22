@@ -9,17 +9,6 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class CitiesService {
     /**
-     * Get Cities
-     * @returns City Successful Response
-     * @throws ApiError
-     */
-    public static getCitiesLocationsCitiesGet(): CancelablePromise<Array<City>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/locations/cities',
-        });
-    }
-    /**
      * Create City
      * @param requestBody
      * @returns City Successful Response
@@ -33,6 +22,29 @@ export class CitiesService {
             url: '/locations/cities',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Cities
+     * @param query
+     * @param page
+     * @returns City Successful Response
+     * @throws ApiError
+     */
+    public static getCitiesLocationsCitiesGet(
+        query?: string,
+        page: number = 1,
+    ): CancelablePromise<Array<City>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/locations/cities',
+            query: {
+                'query': query,
+                'page': page,
+            },
             errors: {
                 422: `Validation Error`,
             },
