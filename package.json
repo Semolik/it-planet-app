@@ -4,6 +4,7 @@
     "type": "module",
     "scripts": {
         "build": "nuxt generate && npx cap copy && npx cap sync && npx cap open android",
+        "build-web": "nuxt build",
         "dev": "nuxt dev",
         "dev-local": "cross-env LOCAL_SERVER=true nuxt dev",
         "devhost": "nuxt dev --host",
