@@ -1,7 +1,10 @@
 <template>
     <ion-page>
         <app-header @options="filtersModalOpen = true" />
-        <ion-content class="content">
+        <ion-content
+            scrollY="false"
+            class="content"
+        >
             <div class="toggle-wrapper">
                 <div class="toggle-search">
                     <div
@@ -67,7 +70,10 @@
                             }
                         "
                     />
-                    <div class="no-institution" v-if="!userData.institution">
+                    <div
+                        class="no-institution"
+                        v-if="!userData.institution"
+                    >
                         Подтвердите профиль, чтобы выбрать институты
                     </div>
 
@@ -97,7 +103,10 @@
                         v-if="userData.institution"
                     />
 
-                    <div class="filters-button clear" @click="clearFilters">
+                    <div
+                        class="filters-button clear"
+                        @click="clearFilters"
+                    >
                         Очистить фильтры
                     </div>
                 </div>
@@ -142,11 +151,7 @@ const searchCards = ref([
         age: 21,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photos: [
-            "https://loremflickr.com/1000/1000/cats?random=1",
-            "https://loremflickr.com/1000/1000/cats?random=2",
-            "https://loremflickr.com/1000/1000/cats?random=3",
-        ],
+        photo: "https://loremflickr.com/1000/1000/cats?random=1",
     },
     {
         id: 2,
@@ -154,11 +159,7 @@ const searchCards = ref([
         age: 20,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photos: [
-            "https://loremflickr.com/1000/1000/cats?random=4",
-            "https://loremflickr.com/1000/1000/cats?random=5",
-            "https://loremflickr.com/1000/1000/cats?random=6",
-        ],
+        photo: "https://loremflickr.com/1000/1000/cats?random=4",
     },
     {
         id: 3,
@@ -166,11 +167,7 @@ const searchCards = ref([
         age: 20,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photos: [
-            "https://loremflickr.com/1000/1000/cats?random=7",
-            "https://loremflickr.com/1000/1000/cats?random=8",
-            "https://loremflickr.com/1000/1000/cats?random=9",
-        ],
+        photo: "https://loremflickr.com/1000/1000/cats?random=7",
     },
     {
         id: 4,
@@ -178,11 +175,7 @@ const searchCards = ref([
         age: 20,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photos: [
-            "https://loremflickr.com/1000/1000/cats?random=10",
-            "https://loremflickr.com/1000/1000/cats?random=11",
-            "https://loremflickr.com/1000/1000/cats?random=12",
-        ],
+        photo: "https://loremflickr.com/1000/1000/cats?random=10",
     },
     {
         id: 5,
@@ -190,11 +183,7 @@ const searchCards = ref([
         age: 99,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photos: [
-            "https://loremflickr.com/1000/1000/cats?random=13",
-            "https://loremflickr.com/1000/1000/cats?random=14",
-            "https://loremflickr.com/1000/1000/cats?random=15",
-        ],
+        photo: "https://loremflickr.com/1000/1000/cats?random=13",
     },
 ]);
 
@@ -205,11 +194,7 @@ const likesCards = ref([
         age: 20,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photos: [
-            "https://loremflickr.com/1000/1000/cats?random=16",
-            "https://loremflickr.com/1000/1000/cats?random=17",
-            "https://loremflickr.com/1000/1000/cats?random=18",
-        ],
+        photo: "https://loremflickr.com/1000/1000/cats?random=16",
     },
     {
         id: 7,
@@ -217,11 +202,7 @@ const likesCards = ref([
         age: 20,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photos: [
-            "https://loremflickr.com/1000/1000/cats?random=19",
-            "https://loremflickr.com/1000/1000/cats?random=20",
-            "https://loremflickr.com/1000/1000/cats?random=21",
-        ],
+        photo: "https://loremflickr.com/1000/1000/cats?random=19",
     },
     {
         id: 8,
@@ -229,11 +210,7 @@ const likesCards = ref([
         age: 19,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photos: [
-            "https://loremflickr.com/1000/1000/cats?random=22",
-            "https://loremflickr.com/1000/1000/cats?random=23",
-            "https://loremflickr.com/1000/1000/cats?random=24",
-        ],
+        photo: "https://loremflickr.com/1000/1000/cats?random=22",
     },
 ]);
 
@@ -304,6 +281,7 @@ const like = () => {
 }
 .content {
     --background: linear-gradient(180deg, #62a87c, #f2f3f4) no-repeat;
+    height: 100%;
 }
 
 .toggle-wrapper {

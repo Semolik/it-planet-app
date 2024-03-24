@@ -68,8 +68,8 @@ const decide = (choice, event) => {
 
 <style scoped lang="scss">
 .card {
-  width: 88%;
-  height: calc(88vw / 3 * 5);
+  width: 88vw;
+  height: 75vh;
   position: absolute;
   transition: 0.3s;
   transform: translateX(v-bind("cardProperties.shift"));
