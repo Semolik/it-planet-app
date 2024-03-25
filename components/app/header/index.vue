@@ -4,6 +4,7 @@
             v-if="!hideButtons"
             :icon="ioniconsNotificationsOutline"
             @click="() => emit('notifications')"
+            :number="notificationsStore.unreadNotificationsCount"
         />
         <div class="header__title">Frienda</div>
         <app-header-button
@@ -15,6 +16,8 @@
 </template>
 
 <script setup>
+import { useNotificationsStore } from "@/stores/notifications";
+const notificationsStore = useNotificationsStore();
 defineProps({
     hideButtons: {
         type: Boolean,

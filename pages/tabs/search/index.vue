@@ -1,10 +1,10 @@
 <template>
     <ion-page>
-        <app-header @options="filtersModalOpen = true" />
-        <ion-content
-            scrollY="false"
-            class="content"
-        >
+        <app-header
+            @options="filtersModalOpen = true"
+            @notifications="() => $router.push('/tabs/notifications')"
+        />
+        <ion-content scrollY="false" class="content">
             <div class="toggle-wrapper">
                 <div class="toggle-search">
                     <div
@@ -70,10 +70,7 @@
                             }
                         "
                     />
-                    <div
-                        class="no-institution"
-                        v-if="!userData.institution"
-                    >
+                    <div class="no-institution" v-if="!userData.institution">
                         Подтвердите профиль, чтобы выбрать институты
                     </div>
 
@@ -103,10 +100,7 @@
                         v-if="userData.institution"
                     />
 
-                    <div
-                        class="filters-button clear"
-                        @click="clearFilters"
-                    >
+                    <div class="filters-button clear" @click="clearFilters">
                         Очистить фильтры
                     </div>
                 </div>

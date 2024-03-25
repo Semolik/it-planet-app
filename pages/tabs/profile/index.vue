@@ -8,6 +8,9 @@
                         :image="authStore.userData?.image"
                         @change="onChangeImage"
                     />
+                    <div class="message" v-if="!userData.image">
+                        Без фото вы не попадете в рекомендации
+                    </div>
                     <div class="user-name">{{ authStore.userData?.name }}</div>
                 </div>
                 <div class="profile-inputs">
@@ -152,6 +155,9 @@ const passwordCorrect = computed(
                 font-size: 20px;
                 font-weight: 600;
                 letter-spacing: 3px;
+            }
+            .message {
+                color: $secondary;
             }
         }
         .profile-inputs {

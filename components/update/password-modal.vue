@@ -5,7 +5,7 @@
             <green-button
                 @click="updateEmail"
                 class="submitButton"
-                padding="10px"
+                padding="15px"
                 :disabled="!buttonActive"
             >
                 Обновить

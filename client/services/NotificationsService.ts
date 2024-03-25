@@ -9,13 +9,22 @@ import { request as __request } from '../core/request';
 export class NotificationsService {
     /**
      * Get Notifications
+     * @param page
      * @returns Notification Successful Response
      * @throws ApiError
      */
-    public static getNotificationsNotificationsGet(): CancelablePromise<Array<Notification>> {
+    public static getNotificationsNotificationsGet(
+        page: number,
+    ): CancelablePromise<Array<Notification>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/notifications',
+            query: {
+                'page': page,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
         });
     }
     /**
@@ -38,6 +47,17 @@ export class NotificationsService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/notifications/unread/count',
+        });
+    }
+    /**
+     * Read Notification
+     * @returns void
+     * @throws ApiError
+     */
+    public static readNotificationNotificationsReadPost(): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/notifications/read',
         });
     }
     /**
