@@ -26,17 +26,10 @@
                 </div>
             </div>
             <div class="cards-wrapper">
-                <app-search
+                <recommendations
                     v-if="isActive"
-                    @dislike="dislike"
-                    @like="like"
-                    :searchCards="searchCards"
-                />
-                <app-search
-                    v-else
-                    @dislike="dislike"
-                    @like="like"
-                    :likesCards="likesCards"
+                    :hobbies_ids="hobbies_ids"
+                    :institutions_ids="institutions_ids"
                 />
             </div>
             <ion-popover
@@ -124,6 +117,10 @@ const filters = reactive({
     hobbies: [],
     institutions: [],
 });
+const hobbies_ids = computed(() => filters.hobbies.map((hobby) => hobby.id));
+const institutions_ids = computed(() =>
+    filters.institutions.map((institution) => institution.id)
+);
 const clearFilters = () => {
     filters.hobbies = [];
     filters.institutions = [];
@@ -138,95 +135,7 @@ const selectedInstitutionsString = computed(() => {
         .join(", ");
 });
 
-const searchCards = ref([
-    {
-        id: 1,
-        name: "Рома",
-        age: 21,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photo: "https://loremflickr.com/1000/1000/cats?random=1",
-    },
-    {
-        id: 2,
-        name: "Ярик",
-        age: 20,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photo: "https://loremflickr.com/1000/1000/cats?random=4",
-    },
-    {
-        id: 3,
-        name: "Сема",
-        age: 20,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photo: "https://loremflickr.com/1000/1000/cats?random=7",
-    },
-    {
-        id: 4,
-        name: "Бага",
-        age: 20,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photo: "https://loremflickr.com/1000/1000/cats?random=10",
-    },
-    {
-        id: 5,
-        name: "Хуй",
-        age: 99,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photo: "https://loremflickr.com/1000/1000/cats?random=13",
-    },
-]);
-
-const likesCards = ref([
-    {
-        id: 6,
-        name: "Таня",
-        age: 20,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photo: "https://loremflickr.com/1000/1000/cats?random=16",
-    },
-    {
-        id: 7,
-        name: "Полина",
-        age: 20,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photo: "https://loremflickr.com/1000/1000/cats?random=19",
-    },
-    {
-        id: 8,
-        name: "Катя",
-        age: 19,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris.",
-        photo: "https://loremflickr.com/1000/1000/cats?random=22",
-    },
-]);
-
 const isActive = ref(true);
-const searchOpacity = ref(1);
-const likesOpacity = ref(0.5);
-
-const dislike = () => {
-    if (isActive.value == true) {
-        searchCards.value.shift();
-    } else {
-        likesCards.value.shift();
-    }
-};
-
-const like = () => {
-    if (isActive.value == true) {
-        console.log("liked!");
-    } else {
-        console.log("liked too!");
-    }
-};
 </script>
 
 <style scoped lang="scss">
