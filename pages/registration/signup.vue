@@ -131,7 +131,8 @@ const isActive = computed(
         password.value == passwordRepeat.value &&
         password.value &&
         email.value &&
-        !isEmailWarning.value
+        !isEmailWarning.value &&
+        !isPasswordWarning.value
 );
 
 const sendData = async () => {
