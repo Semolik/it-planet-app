@@ -14,6 +14,10 @@ import { HobbiesService } from "@/client";
 const props = defineProps({
     active: Boolean,
     selectedHobbies: Array,
+    usedByUsers: {
+        type: Boolean,
+        default: false,
+    },
 });
 const emit = defineEmits(["update:active", "add:hobby", "remove:hobby"]);
 
@@ -22,6 +26,8 @@ const active = computed({
     set: (value) => emit("update:active", value),
 });
 const fetchHobbies = async (page, search) => {
-    return await HobbiesService.getHobbiesHobbiesGet(page, search);
+    return props.usedByUsers
+        ? await HobbiesService.getHobbiesHobbiesGet(page, search)
+        : await HobbiesService.getHobbiesHobbiesAllGet(page, search);
 };
 </script>

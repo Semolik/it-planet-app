@@ -50,6 +50,7 @@
                     <hobbies-select
                         v-model:active="hobbiesSelectOpen"
                         :selected-hobbies="filters.hobbies"
+                        used-by-users
                         @add:hobby="
                             (hobby) => {
                                 filters.hobbies.push(hobby);

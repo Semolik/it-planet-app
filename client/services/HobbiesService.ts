@@ -107,6 +107,30 @@ export class HobbiesService {
         });
     }
     /**
+     * Get Hobbies
+     * Возвращает список хобби, отсортированный по количеству пользователей, занимающихся этим хобби.
+     * @param page
+     * @param query
+     * @returns HobbyWithLike Successful Response
+     * @throws ApiError
+     */
+    public static getHobbiesHobbiesAllGet(
+        page: number,
+        query?: string,
+    ): CancelablePromise<Array<HobbyWithLike>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/hobbies/all',
+            query: {
+                'page': page,
+                'query': query,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Update Hobby
      * @param hobbyId
      * @param name
