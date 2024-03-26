@@ -13,8 +13,18 @@
                 />
             </div>
         </div>
-        <div class="info"></div>
-        <green-button padding="10px">Написать</green-button>
+        <chats-create-modal
+            v-model:active="newChatModalOpen"
+            :toUserId="user.id"
+        />
+        <div class="buttons">
+            <green-button padding="10px" @click="openChat">
+                Написать
+            </green-button>
+            <green-button padding="10px" :to="`/tabs/users/${user.id}`">
+                Открыть профиль
+            </green-button>
+        </div>
     </div>
 </template>
 <script setup>
@@ -24,6 +34,15 @@ const props = defineProps({
     is_match: Boolean,
 });
 const emit = defineEmits(["like"]);
+const newChatModalOpen = ref(false);
+const openChat = async () => {
+    try {
+        const chat = await ChatsService.getChatWithUserChatsUserUserIdGet(id);
+        router.push(`/tabs/chats/${chat.id}`);
+        return;
+    } catch (e) {}
+    newChatModalOpen.value = true;
+};
 </script>
 <style scoped lang="scss">
 .liked-card {
@@ -33,7 +52,7 @@ const emit = defineEmits(["like"]);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     .headline {
         display: grid;
         gap: 10px;
@@ -54,6 +73,12 @@ const emit = defineEmits(["like"]);
                 color: $primary;
             }
         }
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 }
 </style>

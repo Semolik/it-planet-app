@@ -35,25 +35,10 @@
                     {{ user.description }}
                 </div>
             </div>
-            <ion-popover
-                :is-open="newChatModalOpen"
-                @ionPopoverDidDismiss="newChatModalOpen = false"
-            >
-                <div class="new-chat-modal">
-                    <div class="headline">Написать сообщение</div>
-                    <app-input
-                        v-model="newChatMessage"
-                        placeholder="Введите сообщение"
-                    />
-                    <UButton
-                        label="Отправить"
-                        size="lg"
-                        block
-                        :disabled="!newChatMessage"
-                        @click="createChat"
-                    />
-                </div>
-            </ion-popover>
+            <chat-create-modal
+                v-model:active="newChatModalOpen"
+                :toUserId="id"
+            />
         </ion-content>
     </ion-page>
 </template>
@@ -78,30 +63,8 @@ const openChat = async () => {
     } catch (e) {}
     newChatModalOpen.value = true;
 };
-const createChat = async () => {
-    if (!newChatMessage.value) {
-        return;
-    }
-    const chat = await ChatsService.createChatChatsPost(
-        newChatMessage.value,
-        id
-    );
-    router.push(`/tabs/chats/${chat.id}`);
-    newChatModalOpen.value = false;
-};
 </script>
 <style scoped lang="scss">
-.new-chat-modal {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    .headline {
-        font-size: 20px;
-        text-align: center;
-    }
-}
 .wrapper {
     padding: 10px;
     display: flex;
