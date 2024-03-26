@@ -21,10 +21,10 @@
             </div>
             <div class="wrapper verify" v-else>
                 <div class="message">
-                    <!-- ! Поставить рабочую ссылку на подтверждение аккаунта -->
-                    <br />Чтобы пользоваться чатами, вам нужно<nuxt-link
-                        >подтвердить свой аккаунт</nuxt-link
-                    >
+                    <br />Чтобы пользоваться чатами, вам нужно
+                    <nuxt-link to="/registration/userInfo">
+                        подтвердить свой аккаунт
+                    </nuxt-link>
                 </div>
             </div>
         </ion-content>

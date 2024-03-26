@@ -1,27 +1,33 @@
 <template>
-    <recommendations-card
-        class="card"
-        :user="recommendedUser"
-        :key="recommendedUser.id"
-    />
-    <div class="btns">
-        <recommendations-button
-            class="btns_dislike"
-            color="light"
-            :icon="ioniconsThumbsDownSharp"
-            @click="decide('dislike', $event)"
+    <div class="cards-wrapper">
+        <recommendations-card
+            class="card"
+            :user="recommendedUser"
+            :key="recommendedUser.id"
         />
-        <recommendations-button
-            class="btns_like"
-            color="light"
-            :icon="ioniconsThumbsUpSharp"
-            @click="decide('like', $event)"
-        />
+        <div class="empty" v-if="loading">
+            <ion-spinner />
+        </div>
+        <div class="btns">
+            <recommendations-button
+                class="btns_dislike"
+                color="light"
+                :icon="ioniconsThumbsDownSharp"
+                @click="decide('dislike', $event)"
+            />
+            <recommendations-button
+                class="btns_like"
+                color="light"
+                :icon="ioniconsThumbsUpSharp"
+                @click="decide('like', $event)"
+            />
+        </div>
     </div>
 </template>
 
 <script setup>
 import { UsersService } from "@/client";
+const loading = ref(true);
 const props = defineProps({
     hobbies_ids: {
         type: Array,
@@ -44,12 +50,15 @@ const recommendedUser = ref(
         institutions_ids.value
     )
 );
+loading.value = false;
 const fetchNextUser = async () => {
+    loading.value = true;
     recommendedUser.value =
         await UsersService.getRecommendedUsersRecommendedGet(
             hobbies_ids.value,
             institutions_ids.value
         );
+    loading.value = false;
 };
 watch(
     [hobbies_ids, institutions_ids],
@@ -117,63 +126,75 @@ const decide = async (choice, event) => {
 </script>
 
 <style scoped lang="scss">
-.card {
-    width: 88vw;
-    height: 75vh;
-    position: absolute;
-    transition: 0.3s;
-    transform: translateX(v-bind("cardProperties.shift"));
-    opacity: v-bind("cardProperties.opacity");
-    z-index: 5;
+.cards-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 
-    &:nth-child(2n) {
-        opacity: 1;
-        transform: translateX(0);
-        z-index: 4;
-        scale: v-bind("cardProperties.scale");
+    .card {
+        width: 88vw;
+        height: 75vh;
+        position: absolute;
+        transition: 0.3s;
+        transform: translateX(v-bind("cardProperties.shift"));
+        opacity: v-bind("cardProperties.opacity");
+        z-index: 5;
+
+        &:nth-child(2n) {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 4;
+            scale: v-bind("cardProperties.scale");
+        }
+
+        &:nth-child(3n) {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 3;
+            scale: 0.8;
+        }
+
+        &:nth-child(4n) {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 2;
+            scale: 0.7;
+        }
+
+        &:nth-child(5n) {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 1;
+            scale: 0.6;
+        }
     }
 
-    &:nth-child(3n) {
-        opacity: 1;
-        transform: translateX(0);
-        z-index: 3;
-        scale: 0.8;
-    }
+    .btns {
+        position: absolute;
+        bottom: 0;
+        top: 85%;
+        right: 0;
+        left: 0;
+        z-index: 5;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20% 5%;
 
-    &:nth-child(4n) {
-        opacity: 1;
-        transform: translateX(0);
-        z-index: 2;
-        scale: 0.7;
-    }
-
-    &:nth-child(5n) {
-        opacity: 1;
-        transform: translateX(0);
-        z-index: 1;
-        scale: 0.6;
+        &_like,
+        &_dislike {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #f2f3f4;
+            box-shadow: 0 0 7px #5f5f5f;
+        }
     }
 }
-
-.btns {
-    position: absolute;
-    bottom: 0;
-    top: 85%;
-    right: 0;
-    left: 0;
-    z-index: 5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20% 5%;
-
-    &_like,
-    &_dislike {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background-color: #f2f3f4;
-        box-shadow: 0 0 7px #5f5f5f;
-    }
+.empty {
+    height: 100%;
+    @include flex-center;
 }
 </style>

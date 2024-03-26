@@ -25,77 +25,96 @@
                     </div>
                 </div>
             </div>
-            <div class="cards-wrapper">
-                <recommendations
-                    v-if="isActive"
-                    :hobbies_ids="hobbies_ids"
-                    :institutions_ids="institutions_ids"
-                />
-            </div>
+
+            <recommendations
+                v-if="isActive"
+                :hobbies_ids="hobbies_ids"
+                :institutions_ids="institutions_ids"
+            />
+
+            <liked v-else :only-matches="onlyMatches" />
             <ion-popover
                 :is-open="filtersModalOpen"
                 @ionPopoverDidDismiss="filtersModalOpen = false"
             >
                 <div class="filters">
                     <div class="headline">Фильтры</div>
-                    <div
-                        @click="hobbiesSelectOpen = true"
-                        class="filters-button"
-                    >
-                        Выбрать хобби
-                        <template v-if="filters.hobbies.length > 0">
-                            ({{ selectedHobbiesString }})
-                        </template>
-                    </div>
-                    <hobbies-select
-                        v-model:active="hobbiesSelectOpen"
-                        :selected-hobbies="filters.hobbies"
-                        used-by-users
-                        @add:hobby="
-                            (hobby) => {
-                                filters.hobbies.push(hobby);
-                            }
-                        "
-                        @remove:hobby="
-                            (hobby) => {
-                                filters.hobbies = filters.hobbies.filter(
-                                    (h) => h.id !== hobby.id
-                                );
-                            }
-                        "
-                    />
-                    <div class="no-institution" v-if="!userData.institution">
-                        Подтвердите профиль, чтобы выбрать институты
-                    </div>
-
-                    <div
-                        @click="
-                            () =>
-                                userData.institution &&
-                                (institutionsSelectOpen = true)
-                        "
-                        :class="[
-                            'filters-button',
-                            { disabled: !userData.institution },
-                        ]"
-                    >
-                        <span class="text">
-                            Выбрать институты
-                            <template v-if="filters.institutions.length > 0">
-                                ({{ selectedInstitutionsString }})
+                    <div class="filters-content" v-if="isActive">
+                        <div
+                            @click="hobbiesSelectOpen = true"
+                            class="filters-button"
+                        >
+                            Выбрать хобби
+                            <template v-if="filters.hobbies.length > 0">
+                                ({{ selectedHobbiesString }})
                             </template>
-                        </span>
+                        </div>
+                        <hobbies-select
+                            v-model:active="hobbiesSelectOpen"
+                            :selected-hobbies="filters.hobbies"
+                            used-by-users
+                            @add:hobby="
+                                (hobby) => {
+                                    filters.hobbies.push(hobby);
+                                }
+                            "
+                            @remove:hobby="
+                                (hobby) => {
+                                    filters.hobbies = filters.hobbies.filter(
+                                        (h) => h.id !== hobby.id
+                                    );
+                                }
+                            "
+                        />
+                        <div
+                            class="no-institution"
+                            v-if="!userData.institution"
+                        >
+                            Подтвердите профиль, чтобы выбрать институты
+                        </div>
+
+                        <div
+                            @click="
+                                () =>
+                                    userData.institution &&
+                                    (institutionsSelectOpen = true)
+                            "
+                            :class="[
+                                'filters-button',
+                                { disabled: !userData.institution },
+                            ]"
+                        >
+                            <span class="text">
+                                Выбрать институты
+                                <template
+                                    v-if="filters.institutions.length > 0"
+                                >
+                                    ({{ selectedInstitutionsString }})
+                                </template>
+                            </span>
+                        </div>
+
+                        <select-modal-institution
+                            v-model:active="institutionsSelectOpen"
+                            v-model:selected-institutions="filters.institutions"
+                            :city-id="userData.institution.city.id"
+                            v-if="userData.institution"
+                        />
+
+                        <div class="filters-button clear" @click="clearFilters">
+                            Очистить фильтры
+                        </div>
                     </div>
-
-                    <select-modal-institution
-                        v-model:active="institutionsSelectOpen"
-                        v-model:selected-institutions="filters.institutions"
-                        :city-id="userData.institution.city.id"
-                        v-if="userData.institution"
-                    />
-
-                    <div class="filters-button clear" @click="clearFilters">
-                        Очистить фильтры
+                    <div
+                        class="filters-content"
+                        v-else
+                        @click="onlyMatches = !onlyMatches"
+                    >
+                        <UCheckbox
+                            class="filters-button clear"
+                            label="Показать только совпадения"
+                            :checked="onlyMatches"
+                        />
                     </div>
                 </div>
             </ion-popover>
@@ -111,6 +130,7 @@ const { userData } = toRefs(authStore);
 definePageMeta({
     alias: ["/"],
 });
+const onlyMatches = ref(false);
 const hobbiesSelectOpen = ref(false);
 const institutionsSelectOpen = ref(false);
 const filtersModalOpen = ref(false);
@@ -145,42 +165,47 @@ const isActive = ref(true);
     display: flex;
     flex-direction: column;
     gap: 10px;
-
-    .hobby {
+    .filters-content {
         display: flex;
-        padding: 10px;
-    }
+        flex-direction: column;
+        gap: 10px;
 
-    .empty {
-        @include flex-center;
-        flex-grow: 1;
-    }
-
-    .filters-button {
-        padding: 10px;
-        background-color: $primary;
-        color: $secondary;
-        border-radius: 10px;
-        text-align: center;
-
-        &.clear {
-            background-color: $tertiary;
-            color: $primary-text;
+        .hobby {
+            display: flex;
+            padding: 10px;
         }
 
-        &.disabled {
-            background-color: $senary;
-            color: $primary-text;
-            .text {
-                opacity: 0.5;
+        .empty {
+            @include flex-center;
+            flex-grow: 1;
+        }
+
+        .filters-button {
+            padding: 10px;
+            background-color: $primary;
+            color: $secondary;
+            border-radius: 10px;
+            text-align: center;
+
+            &.clear {
+                background-color: $tertiary;
+                color: $primary-text;
+            }
+
+            &.disabled {
+                background-color: $senary;
+                color: $primary-text;
+                .text {
+                    opacity: 0.5;
+                }
             }
         }
-    }
 
-    .no-institution {
-        font-size: 14px;
-        text-align: center;
-        color: $secondary-text;
+        .no-institution {
+            font-size: 14px;
+            text-align: center;
+            color: $secondary-text;
+        }
     }
 }
 .content {
@@ -210,13 +235,5 @@ const isActive = ref(true);
             }
         }
     }
-}
-
-.cards-wrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
 }
 </style>
