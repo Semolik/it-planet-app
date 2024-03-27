@@ -4,7 +4,7 @@
             @options="filtersModalOpen = true"
             @notifications="() => $router.push('/tabs/notifications')"
         />
-        <ion-content scrollY="false" class="content">
+        <ion-content :scrollY="isActive ? false : true" class="content">
             <div class="toggle-wrapper">
                 <div class="toggle-search">
                     <div
