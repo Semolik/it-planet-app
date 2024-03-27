@@ -58,7 +58,6 @@ const dateText = computed(() => {
     padding: 10px;
     border-radius: 10px;
     background-color: white;
-    margin-bottom: 10px;
     color: $primary-text;
     gap: 10px;
     .image {
