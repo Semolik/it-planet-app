@@ -21,7 +21,10 @@
             <green-button padding="10px" @click="openChat">
                 Написать
             </green-button>
-            <green-button padding="10px" :to="`/tabs/users/${user.id}`">
+            <green-button
+                padding="10px"
+                @click="() => $router.push(`/tabs/users/${user.id}`)"
+            >
                 Открыть профиль
             </green-button>
         </div>

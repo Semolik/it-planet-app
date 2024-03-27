@@ -9,18 +9,18 @@
                     {{ user.name }}
                 </div>
                 <div class="buttons">
-                    <app-search-button
+                    <recommendations-button
                         class="btns_dislike btn"
                         color="light"
                         :icon="ioniconsThumbsDownSharp"
                     />
-                    <app-search-button
+                    <recommendations-button
                         class="btns_dislike btn"
                         color="light"
                         :icon="ioniconsChatbubble"
                         @click="openChat"
                     />
-                    <app-search-button
+                    <recommendations-button
                         class="btns_like btn"
                         color="light"
                         :icon="ioniconsThumbsUpSharp"
@@ -35,7 +35,7 @@
                     {{ user.description }}
                 </div>
             </div>
-            <chat-create-modal
+            <chats-create-modal
                 v-model:active="newChatModalOpen"
                 :toUserId="id"
             />
