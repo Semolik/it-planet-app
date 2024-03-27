@@ -1,23 +1,26 @@
 <template>
-    <div class="wrapper">
-        <liked-card
-            v-for="like in likes"
-            :key="like.liked_user.id"
-            :user="like.liked_user"
-            @like="() => toggleLike(like.liked_user)"
-            :liked="like.is_liked"
-        />
-    </div>
-    <div class="empty" v-if="!likes.length && !loading">
-        Вы еще никого не лайкнули
-    </div>
-    <div class="empty" v-if="loading">
-        <ion-spinner />
-    </div>
+    <div class="liked-page">
+        <div class="wrapper">
+            <liked-card
+                v-for="like in likes"
+                :key="like.liked_user.id"
+                :user="like.liked_user"
+                @like="() => toggleLike(like.liked_user)"
+                :liked="like.is_liked"
+                :is_match="like.is_match"
+            />
+        </div>
+        <div class="empty" v-if="!likes.length && !loading">
+            Вы еще никого не лайкнули
+        </div>
+        <div class="empty" v-if="loading">
+            <ion-spinner />
+        </div>
 
-    <ion-infinite-scroll @ionInfinite="fetchPage" :disabled="is_end">
-        <ion-infinite-scroll-content />
-    </ion-infinite-scroll>
+        <ion-infinite-scroll @ionInfinite="fetchPage" :disabled="is_end">
+            <ion-infinite-scroll-content />
+        </ion-infinite-scroll>
+    </div>
 </template>
 <script setup>
 import { UsersService, LikesService } from "@/client";
@@ -88,5 +91,10 @@ watch(props, () => {
 .empty {
     height: 100%;
     @include flex-center;
+}
+
+.liked-page {
+    display: flex;
+    flex-direction: column;
 }
 </style>
