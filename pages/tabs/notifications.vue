@@ -2,12 +2,13 @@
     <ion-page class="content">
         <app-registration-header title="Уведомления" />
         <ion-content class="content">
-            <div class="wrapper">
+            <div class="wrapper" v-if="notifications.length > 0">
                 <notification
                     v-for="notification in notifications"
                     :notification="notification"
                 />
             </div>
+            <div class="empty" v-else>У вас нет уведомлений</div>
             <ion-infinite-scroll @ionInfinite="fetchPage" :disabled="is_end">
                 <ion-infinite-scroll-content />
             </ion-infinite-scroll>
@@ -47,6 +48,14 @@ fetchPage();
         flex-direction: column;
         gap: 10px;
         padding: 10px;
+    }
+
+    .empty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        color: white;
     }
 }
 </style>

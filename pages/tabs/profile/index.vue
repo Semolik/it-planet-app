@@ -1,8 +1,8 @@
 <template>
     <ion-page class="page">
-        <app-header hideButtons />
         <ion-content class="content">
             <div class="wrapper">
+                <app-header hideButtons />
                 <div class="profile-avatar-wrapper">
                     <app-input-image
                         :image="authStore.userData?.image"
@@ -107,12 +107,6 @@ const onChangeImage = async (blob) => {
     });
     userData.value.image = imageData.url;
 };
-
-const password = ref("");
-const passwordRepeat = ref("");
-const passwordCorrect = computed(
-    () => password.value && password.value === passwordRepeat.value
-);
 </script>
 
 <style scoped lang="scss">
@@ -120,7 +114,7 @@ const passwordCorrect = computed(
     .wrapper {
         display: flex;
         flex-direction: column;
-        padding-top: 30px;
+
         padding-inline: 15px;
         gap: 20px;
         padding-bottom: 10px;
@@ -130,6 +124,7 @@ const passwordCorrect = computed(
                 color-mix(in srgb, #62a87c, #f2f3f4)
             )
             no-repeat;
+        min-height: 100%;
         .profile-avatar-wrapper {
             display: flex;
             justify-content: center;

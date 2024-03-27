@@ -3,7 +3,7 @@
         <ion-content>
             <div class="wrapper">
                 <div class="avatar-container">
-                    <avatar-content :user="user" class="avatar" />
+                    <avatar-content :image="user.image" class="avatar" />
                 </div>
                 <div class="name">
                     {{ user.name }}
@@ -75,10 +75,7 @@ const openChat = async () => {
         border-radius: 10px;
         @include flex-center;
         aspect-ratio: 1;
-
-        .avatar {
-            max-width: 200px;
-        }
+        overflow: hidden;
     }
     .name {
         text-align: center;
