@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { UserLikeFull } from '../models/UserLikeFull';
-import type { UserReadShort } from '../models/UserReadShort';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -12,12 +11,12 @@ export class LikesService {
      * Get Matches
      * Возвращает список пользователей, которые взаимно лайкнули текущего пользователя.
      * @param page
-     * @returns UserReadShort Successful Response
+     * @returns UserLikeFull Successful Response
      * @throws ApiError
      */
     public static getMatchesLikesMatchesGet(
         page: number = 1,
-    ): CancelablePromise<Array<UserReadShort>> {
+    ): CancelablePromise<Array<UserLikeFull>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/likes/matches',
@@ -31,7 +30,7 @@ export class LikesService {
     }
     /**
      * Get Likes
-     * Возвращает список пользователей, которые лайкнули текущего пользователя.
+     * Возвращает список пользователей, которых вы лайкнули.
      * @param page
      * @returns UserLikeFull Successful Response
      * @throws ApiError

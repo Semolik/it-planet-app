@@ -6,5 +6,6 @@ import type { UserReadShort } from './UserReadShort';
 export type UserLikeFull = {
     is_match?: boolean;
     liked_user: UserReadShort;
+    is_liked?: boolean;
 };
 

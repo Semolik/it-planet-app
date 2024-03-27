@@ -162,6 +162,29 @@ export class UsersService {
         });
     }
     /**
+     * Get Recommended List
+     * @param hobbiesIds
+     * @param institutionsIds
+     * @returns UserReadShort Successful Response
+     * @throws ApiError
+     */
+    public static getRecommendedListUsersRecommendedListGet(
+        hobbiesIds?: Array<string>,
+        institutionsIds?: Array<string>,
+    ): CancelablePromise<Array<UserReadShort>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/users/recommended/list',
+            query: {
+                'hobbies_ids': hobbiesIds,
+                'institutions_ids': institutionsIds,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Like User
      * @param userId
      * @returns UserLike Successful Response
