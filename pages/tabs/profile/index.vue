@@ -28,6 +28,15 @@
                     </nuxt-link>
                     <div
                         class="inputs"
+                        @click="updateProfileDescriptionModalOpened = true"
+                    >
+                        <span>Изменить описание профиля</span>
+                        <Icon
+                            name="material-symbols:arrow-forward-ios-rounded"
+                        ></Icon>
+                    </div>
+                    <div
+                        class="inputs"
                         @click="updatePasswordModalOpened = true"
                     >
                         <span>Изменить почту</span>
@@ -41,6 +50,7 @@
                             name="material-symbols:arrow-forward-ios-rounded"
                         ></Icon>
                     </div>
+
                     <div
                         class="hobbies-container"
                         @click="hobbiesSelectOpen = true"
@@ -81,6 +91,9 @@
                     <update-password-modal
                         v-model:active="updatePasswordModalOpened"
                     />
+                    <update-description-modal
+                        v-model:active="updateProfileDescriptionModalOpened"
+                    />
                 </div>
             </div>
         </ion-content>
@@ -93,6 +106,7 @@ import { UsersService } from "@/client";
 import { useAuthStore } from "~/stores/auth";
 const updateEmailModalOpened = ref(false);
 const updatePasswordModalOpened = ref(false);
+const updateProfileDescriptionModalOpened = ref(false);
 const authStore = useAuthStore();
 const hobbiesSelectOpen = ref(false);
 const { userData } = storeToRefs(authStore);
