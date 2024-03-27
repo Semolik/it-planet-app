@@ -123,7 +123,7 @@ const passwordCorrect = computed(
         padding-top: 30px;
         padding-inline: 15px;
         gap: 20px;
-        height: 100%;
+        padding-bottom: 10px;
         background: linear-gradient(
                 180deg,
                 #62a87c,
