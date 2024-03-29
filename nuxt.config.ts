@@ -44,7 +44,7 @@ export default defineNuxtConfig({
         public: {
             wsURL: process.env.LOCAL_SERVER
                 ? "ws://localhost:3000/api"
-                : "wss://api.frienda.website",
+                : "wss://frienda.website",
         },
     },
     proxy: {
@@ -55,7 +55,7 @@ export default defineNuxtConfig({
             "/api": {
                 target: process.env.LOCAL_SERVER
                     ? "http://localhost:8000"
-                    : "https://api.frienda.website",
+                    : "https://frienda.website",
                 changeOrigin: true,
                 prependPath: true,
                 rewrite: (path: string) => path.replace(/^\/api/, ""),

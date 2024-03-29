@@ -35,16 +35,16 @@
                             name="material-symbols:arrow-forward-ios-rounded"
                         ></Icon>
                     </div>
-                    <div
-                        class="inputs"
-                        @click="updatePasswordModalOpened = true"
-                    >
+                    <div class="inputs" @click="updateEmailModalOpened = true">
                         <span>Изменить почту</span>
                         <Icon
                             name="material-symbols:arrow-forward-ios-rounded"
                         ></Icon>
                     </div>
-                    <div class="inputs" @click="updateEmailModalOpened = true">
+                    <div
+                        class="inputs"
+                        @click="updatePasswordModalOpened = true"
+                    >
                         <span>Изменить пароль</span>
                         <Icon
                             name="material-symbols:arrow-forward-ios-rounded"

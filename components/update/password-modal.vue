@@ -1,12 +1,27 @@
 <template>
     <ion-popover :is-open="active" @ionPopoverDidDismiss="active = false">
         <div class="wrapper">
-            <app-input v-model="email"></app-input>
+            <div class="field">
+                <div class="label">Введите новый пароль</div>
+                <app-input
+                    v-model="password"
+                    type="password"
+                    placeholder="Пароль"
+                />
+            </div>
+            <div class="field">
+                <div class="label">Повторите пароль</div>
+                <app-input
+                    v-model="passwordRepeat"
+                    type="password"
+                    placeholder="Пароль"
+                />
+            </div>
             <green-button
-                @click="updateEmail"
-                class="submitButton"
+                @click="updatePassword"
+                :disabled="!passwordCorrect"
                 padding="15px"
-                :disabled="!buttonActive"
+                :style="{ marginTop: 'auto' }"
             >
                 Обновить
             </green-button>
@@ -16,28 +31,31 @@
 <script setup>
 import { useAuthStore } from "~/stores/auth";
 const authStore = useAuthStore();
-const { userData } = storeToRefs(authStore);
-const email = ref(userData.value.email);
 const props = defineProps({
     active: Boolean,
 });
+
 const emit = defineEmits(["update:active"]);
 const active = computed({
     get: () => props.active,
     set: (value) => emit("update:active", value),
 });
-watch(active, () => {
-    email.value = userData.value.email;
+const password = ref("");
+const passwordRepeat = ref("");
+watch(active, async (value) => {
+    if (value) {
+        password.value = "";
+        passwordRepeat.value = "";
+    }
 });
-const emailCorrect = computed(() =>
-    /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(email.value)
+const passwordCorrect = computed(
+    () => password.value && password.value === passwordRepeat.value
 );
-const buttonActive = computed(
-    () => emailCorrect.value && userData.value.email != email.value
-);
-const updateEmail = async () => {
-    if (!emailCorrect.value) return;
-    await authStore.updateProfile({ email: email.value });
+
+const updatePassword = async () => {
+    if (!passwordCorrect.value) return;
+    await authStore.updateProfile({ password: password.value });
+    active.value = false;
 };
 </script>
 <style scoped lang="scss">
@@ -46,6 +64,5 @@ const updateEmail = async () => {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 100%;
 }
 </style>
