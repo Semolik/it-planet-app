@@ -49,7 +49,10 @@ watch(active, async (value) => {
     }
 });
 const passwordCorrect = computed(
-    () => password.value && password.value === passwordRepeat.value
+    () =>
+        password.value &&
+        password.value === passwordRepeat.value &&
+        password.value.length >= 8
 );
 
 const updatePassword = async () => {

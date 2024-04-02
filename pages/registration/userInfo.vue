@@ -4,141 +4,153 @@
             :title="isUpdate ? 'Изменить данные' : 'Заполнить данные'"
         />
         <ion-content class="content">
-            <div class="wrapper" v-if="!currentVerificationRequest">
-                <white-button
-                    class="reg-area-item"
-                    @click="selectCityModalOpen = true"
-                    black
-                >
-                    {{ city ? "Изменить город" : "Выбрать город" }}
-                    {{ city ? `(${city.name})` : "" }}
-                </white-button>
-                <white-button
-                    @click="selectInstitutionModalOpen = true"
-                    class="reg-area-item"
-                    :disabled="!city"
-                    black
-                >
-                    {{
-                        institution
-                            ? "Изменить учреждение"
-                            : "Выбрать учреждение"
-                    }}
-                    {{ institution ? `(${institution.name})` : "" }}
-                </white-button>
-                <white-button
-                    class="reg-area-item"
-                    @click="birthdateModalOpen = true"
-                    black
-                    v-if="isUpdate"
-                >
-                    Изменить дату рождения ({{ birthdateString }})
-                </white-button>
-                <div class="field" v-if="isUpdate">
-                    <div class="label">Имя</div>
-                    <auth-input
+            <template v-if="loading">
+                <div class="wrapper loading">
+                    <ion-spinner />
+                </div>
+            </template>
+            <template v-else>
+                <div class="wrapper" v-if="!currentVerificationRequest">
+                    <white-button
                         class="reg-area-item"
-                        v-model="name"
-                        placeholder="Введите имя"
+                        @click="selectCityModalOpen = true"
+                        black
+                    >
+                        {{ city ? "Изменить город" : "Выбрать город" }}
+                        {{ city ? `(${city.name})` : "" }}
+                    </white-button>
+                    <white-button
+                        @click="selectInstitutionModalOpen = true"
+                        class="reg-area-item"
+                        :disabled="!city"
+                        black
+                    >
+                        {{
+                            institution
+                                ? "Изменить учреждение"
+                                : "Выбрать учреждение"
+                        }}
+                        {{ institution ? `(${institution.name})` : "" }}
+                    </white-button>
+                    <white-button
+                        class="reg-area-item"
+                        @click="birthdateModalOpen = true"
+                        black
+                        v-if="isUpdate"
+                    >
+                        Изменить дату рождения ({{ birthdateString }})
+                    </white-button>
+                    <div class="field" v-if="isUpdate">
+                        <div class="label">Имя</div>
+                        <auth-input
+                            class="reg-area-item"
+                            v-model="name"
+                            placeholder="Введите имя"
+                        />
+                    </div>
+                    <app-input-file
+                        is-image
+                        label="Ваше фото"
+                        @change="readPhoto = $event"
                     />
-                </div>
-                <app-input-file
-                    is-image
-                    label="Ваше фото"
-                    @change="readPhoto = $event"
-                />
-                <app-input-file
-                    label="Фото вашего студенческого"
-                    @change="idPhoto = $event"
-                />
+                    <app-input-file
+                        label="Фото вашего студенческого"
+                        @change="idPhoto = $event"
+                    />
 
-                <select-modal-city
-                    v-model:active="selectCityModalOpen"
-                    v-model:city="city"
-                />
-                <select-modal-institution
-                    v-model:active="selectInstitutionModalOpen"
-                    :selectedInstitutions="institution ? [institution] : []"
-                    @update:selected-institutions="institution = $event[0]"
-                    :city-id="city?.id"
-                    v-if="city"
-                />
-                <ion-popover
-                    :isOpen="birthdateModalOpen"
-                    mode="ios"
-                    @ionPopoverDidDismiss="birthdateModalOpen = false"
-                >
-                    <ion-datetime
-                        @ionChange="birthdate = $event.detail.value"
-                        :value="birthdate"
-                        id="datetime"
-                        presentation="date"
-                    ></ion-datetime>
-                </ion-popover>
-                <white-button
-                    class="reg-area-item submit"
-                    @click="submit"
-                    :disabled="!isActive"
-                    black
-                >
-                    Продолжить
-                </white-button>
-            </div>
-            <div class="wrapper" v-else>
-                <div class="info-text">
-                    Ваша заявка на верификацию находится в обработке
+                    <select-modal-city
+                        v-model:active="selectCityModalOpen"
+                        v-model:city="city"
+                    />
+                    <select-modal-institution
+                        v-model:active="selectInstitutionModalOpen"
+                        :selectedInstitutions="institution ? [institution] : []"
+                        @update:selected-institutions="institution = $event[0]"
+                        :city-id="city?.id"
+                        v-if="city"
+                    />
+                    <ion-popover
+                        :isOpen="birthdateModalOpen"
+                        mode="ios"
+                        @ionPopoverDidDismiss="birthdateModalOpen = false"
+                    >
+                        <ion-datetime
+                            @ionChange="birthdate = $event.detail.value"
+                            :value="birthdate"
+                            id="datetime"
+                            presentation="date"
+                        ></ion-datetime>
+                    </ion-popover>
+                    <white-button
+                        class="reg-area-item submit"
+                        @click="submit"
+                        :disabled="!isActive"
+                        black
+                    >
+                        Продолжить
+                    </white-button>
                 </div>
+                <div class="wrapper" v-else>
+                    <div class="info-text">
+                        Ваша заявка на верификацию находится в обработке
+                    </div>
 
-                <div class="info-table">
-                    <div class="info-table-field">
-                        <div class="info-table-field-label">Имя</div>
-                        <div class="info-table-field-value">
-                            {{ currentVerificationRequest.name }}
+                    <div class="info-table">
+                        <div class="info-table-field">
+                            <div class="info-table-field-label">Имя</div>
+                            <div class="info-table-field-value">
+                                {{ currentVerificationRequest.name }}
+                            </div>
+                        </div>
+                        <div class="info-table-field">
+                            <div class="info-table-field-label">
+                                Дата рождения
+                            </div>
+                            <div class="info-table-field-value">
+                                {{
+                                    convertDate(
+                                        currentVerificationRequest.birthdate
+                                    )
+                                }}
+                            </div>
+                        </div>
+                        <div class="info-table-field">
+                            <div class="info-table-field-label">Учреждение</div>
+                            <div class="info-table-field-value">
+                                {{
+                                    currentVerificationRequest.institution.name
+                                }}
+                            </div>
+                        </div>
+                        <div class="info-table-field">
+                            <div class="info-table-field-label">Город</div>
+                            <div class="info-table-field-value">
+                                {{
+                                    currentVerificationRequest.institution.city
+                                        .name
+                                }}
+                            </div>
                         </div>
                     </div>
-                    <div class="info-table-field">
-                        <div class="info-table-field-label">Дата рождения</div>
-                        <div class="info-table-field-value">
-                            {{
-                                convertDate(
-                                    currentVerificationRequest.birthdate
-                                )
-                            }}
-                        </div>
+                    <div class="images">
+                        <img
+                            :src="currentVerificationRequest.real_photo"
+                            class="photo"
+                        />
+                        <img
+                            :src="currentVerificationRequest.id_photo"
+                            class="photo"
+                        />
                     </div>
-                    <div class="info-table-field">
-                        <div class="info-table-field-label">Учреждение</div>
-                        <div class="info-table-field-value">
-                            {{ currentVerificationRequest.institution.name }}
-                        </div>
-                    </div>
-                    <div class="info-table-field">
-                        <div class="info-table-field-label">Город</div>
-                        <div class="info-table-field-value">
-                            {{
-                                currentVerificationRequest.institution.city.name
-                            }}
-                        </div>
-                    </div>
+                    <white-button
+                        class="reg-area-item remove"
+                        black
+                        @click="deleteVerificationRequest"
+                    >
+                        Удалить
+                    </white-button>
                 </div>
-                <div class="images">
-                    <img
-                        :src="currentVerificationRequest.real_photo"
-                        class="photo"
-                    />
-                    <img
-                        :src="currentVerificationRequest.id_photo"
-                        class="photo"
-                    />
-                </div>
-                <white-button
-                    class="reg-area-item remove"
-                    black
-                    @click="deleteVerificationRequest"
-                >
-                    Удалить
-                </white-button>
-            </div>
+            </template>
         </ion-content>
     </ion-page>
 </template>
@@ -181,10 +193,13 @@ const birthdateString = computed(() => convertDate(birthdate.value));
 watch(city, () => {
     institution.value = null;
 });
-const currentVerificationRequest = ref(
-    await VerificationService.getUserVerificationRequestVerificationMeGet()
-);
-
+const loading = ref(true);
+const currentVerificationRequest = ref(null);
+onMounted(async () => {
+    currentVerificationRequest.value =
+        await VerificationService.getUserVerificationRequestVerificationMeGet();
+    loading.value = false;
+});
 const isActive = computed(
     () =>
         city.value &&
@@ -261,6 +276,10 @@ const deleteVerificationRequest = async () => {
     gap: 10px;
     justify-content: center;
     height: 100%;
+
+    &.loading {
+        @include flex-center;
+    }
     .info-text {
         font-size: 18px;
         text-align: center;

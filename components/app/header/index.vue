@@ -35,7 +35,6 @@ const emit = defineEmits(["notifications", "options"]);
     align-items: center;
     background-color: #62a87c;
     color: #f2f3f4;
-
     &__title {
         font-family: "Dancing Script", sans-serif;
         font-size: 40px;
