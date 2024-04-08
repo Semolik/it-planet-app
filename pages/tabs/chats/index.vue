@@ -41,14 +41,18 @@ const chatsStore = useChatsStore();
 const page = ref(1);
 const search = ref("");
 const chats = ref([]);
+const router = useRouter();
 if (userData?.verified) {
     onMounted(async () => {
         chats.value = await ChatsService.getChatsChatsGet(1);
     });
-    watch(search, async (value) => {
-        chats.value = await ChatsService.getChatsChatsGet(1, value);
-        page.value = 1;
-    });
+    watch(
+        [search, () => router.currentRoute.value.name],
+        async ([value, route]) => {
+            chats.value = await ChatsService.getChatsChatsGet(1, value);
+            page.value = 1;
+        }
+    );
     await chatsStore.subscribeToWebSocket((chatData) => {
         const chatIndex = chats.value.findIndex(
             (chat) => chat.id === chatData.id
