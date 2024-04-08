@@ -41,10 +41,22 @@ const createChat = async () => {
     if (!newChatMessage.value) {
         return;
     }
-    const chat = await ChatsService.createChatChatsPost(
-        newChatMessage.value,
-        props.toUserId
-    );
+    let chat;
+    try {
+        chat = await ChatsService.getChatWithUserChatsUserUserIdGet(
+            props.toUserId
+        );
+        await ChatsService.sendMessageChatsChatIdMessagesPost(
+            chat.id,
+            newChatMessage.value
+        );
+    } catch (error) {
+        chat = await ChatsService.createChatChatsPost(
+            newChatMessage.value,
+            props.toUserId
+        );
+    }
+    newChatMessage.value = "";
     router.push(`/tabs/chats/${chat.id}`);
     newChatModalOpen.value = false;
 };

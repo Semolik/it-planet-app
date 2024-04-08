@@ -13,8 +13,8 @@ export default defineNuxtConfig({
     plugins: ["~/plugins/api-url"],
     googleFonts: {
         families: {
-            Jost: true,
             "Dancing Script": true,
+            "Open+Sans": true,
         },
         download: true,
     },
@@ -25,7 +25,10 @@ export default defineNuxtConfig({
         fallback: "light",
     },
     app: {
-        head: { title: "Frienda" },
+        head: {
+            title: "Frienda",
+            meta: [{ name: "theme-color", content: "#62a87c" }],
+        },
     },
     css: ["assets/styles/ionic.scss"],
     vite: {

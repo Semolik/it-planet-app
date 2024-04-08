@@ -15,7 +15,10 @@
             </div>
             <div class="line">
                 <div class="chat-message">{{ chat.last_message.content }}</div>
-                <div class="read-mark">
+                <div
+                    class="read-mark"
+                    v-if="chat.last_message.from_user.id === currentUserId"
+                >
                     <Icon
                         :name="
                             chat.last_message.read
@@ -53,8 +56,8 @@ const dateText = computed(() => {
 </script>
 <style scoped lang="scss">
 .chat {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 55px 1fr;
     padding: 10px;
     border-radius: 10px;
     background-color: white;

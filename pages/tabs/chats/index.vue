@@ -33,6 +33,7 @@
 
 <script setup>
 import { ChatsService } from "@/client";
+import { onMounted } from "vue";
 import { useAuthStore } from "~/stores/auth";
 import { useChatsStore } from "~/stores/chats";
 const { userData } = useAuthStore();
@@ -41,13 +42,14 @@ const page = ref(1);
 const search = ref("");
 const chats = ref([]);
 if (userData?.verified) {
-    chats.value = await ChatsService.getChatsChatsGet(page.value);
+    onMounted(async () => {
+        chats.value = await ChatsService.getChatsChatsGet(1);
+    });
     watch(search, async (value) => {
         chats.value = await ChatsService.getChatsChatsGet(1, value);
         page.value = 1;
     });
     await chatsStore.subscribeToWebSocket((chatData) => {
-        console.log(chatData);
         const chatIndex = chats.value.findIndex(
             (chat) => chat.id === chatData.id
         );

@@ -1,12 +1,13 @@
 {
-    "name": "nuxt-app",
+    "name": "frienda",
     "private": true,
     "type": "module",
     "scripts": {
         "build": "nuxt generate && npx cap copy && npx cap sync && npx cap open android",
+        "build-local": "cross-env LOCAL_SERVER=true nuxt generate && npx cap copy && npx cap sync && npx cap open android",
         "build-web": "nuxt build",
         "dev": "nuxt dev",
-        "dev-local": "cross-env LOCAL_SERVER=true nuxt dev",
+        "dev-local": "cross-env LOCAL_SERVER=true nuxt dev  --host",
         "devhost": "nuxt dev --host",
         "generate": "nuxt generate",
         "preview": "nuxt preview",

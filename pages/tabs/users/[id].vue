@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <ion-content>
+        <ion-content class="content">
             <div class="wrapper">
                 <div class="avatar-container">
                     <avatar-content :image="user.image" class="avatar" />
@@ -26,13 +26,15 @@
                         :icon="ioniconsThumbsUpSharp"
                     />
                 </div>
+                <div class="description" v-if="user.description">
+                    Обо мне
+                    <div class="desc-text">
+                        {{ user.description }}
+                    </div>
+                </div>
                 <div class="hobbies-container" v-if="user.hobbies.length">
                     <div class="headline">Интересы</div>
                     <hobbies :hobbies="user.hobbies" />
-                </div>
-
-                <div class="description" v-if="user.description">
-                    {{ user.description }}
                 </div>
             </div>
             <chats-create-modal
@@ -65,11 +67,15 @@ const openChat = async () => {
 };
 </script>
 <style scoped lang="scss">
+.content {
+}
 .wrapper {
     padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    height: 100%;
     .avatar-container {
         background-color: $secondary;
         border-radius: 10px;
@@ -92,9 +98,12 @@ const openChat = async () => {
         --btn-width: auto;
     }
     .hobbies-container {
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        // background-color: rgba($color: #000000, $alpha: 0.03);
+        // padding: 10px;
     }
 }
 </style>

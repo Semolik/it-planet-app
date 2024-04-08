@@ -196,8 +196,10 @@ watch(city, () => {
 const loading = ref(true);
 const currentVerificationRequest = ref(null);
 onMounted(async () => {
-    currentVerificationRequest.value =
-        await VerificationService.getUserVerificationRequestVerificationMeGet();
+    if (isUpdate.value) {
+        currentVerificationRequest.value =
+            await VerificationService.getUserVerificationRequestVerificationMeGet();
+    }
     loading.value = false;
 });
 const isActive = computed(
@@ -334,8 +336,8 @@ const deleteVerificationRequest = async () => {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 10px;
-        height: 46px;
+        padding: 5px 10px;
+        min-height: 46px;
         background-color: #f2f3f4;
         border-radius: 8px;
         &.submit {

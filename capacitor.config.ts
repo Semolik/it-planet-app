@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
     appName: "Frienda",
     webDir: "dist",
     server: {
-        androidScheme: "https",
+        androidScheme: process.env.LOCAL_SERVER ? "http" : "https",
     },
     plugins: {
         CapacitorCookies: {
